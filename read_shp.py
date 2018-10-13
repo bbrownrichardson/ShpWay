@@ -61,9 +61,9 @@ class ProcessShapeFiles:
         for i, shape in enumerate(sf.shapes()):
             self.draw_polygons(shape)
 
-            pos = self.node_position(sf, i)
+            # pos = self.node_position(sf, i)
             name = records[i][1]
-            self.graph.add_node(name, pos=pos)
+            # self.graph.add_node(name, pos=pos)
 
             self.building_directory[name] = {
                 'building_bbox_dir': list(),
