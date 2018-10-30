@@ -4,6 +4,7 @@ from collision_detector import CollisionDetection
 import networkx as nx
 import matplotlib.pyplot as plt
 import mplleaflet
+import time
 
 
 class ShapefileNavigator:
@@ -14,17 +15,29 @@ class ShapefileNavigator:
         self.start_node = None
         self.destination_node = None
         self.collision_obj = None
+        self.setup_spatial_partitioning()
         self.start()
 
-    def start(self):
+    def setup_spatial_partitioning(self):
         if self.path_dir.strip() is '' or self.building_dir.strip() is '':
+            # TODO: REMOVE time FUNCTIONS LATER
+            start = time.time()
             self.collision_obj = CollisionDetection(ReadShapeFiles())
+            end = time.time()
+            print("Collision Detection took " + str(end - start) + "\n")
         else:
+            # TODO: REMOVE time FUNCTIONS LATER
+            start = time.time()
             self.collision_obj = CollisionDetection(ReadShapeFiles(pathways=self.path_dir, buildings=self.building_dir))
+            end = time.time()
+            print("Collision Detection took " + str(end - start) + "\n")
 
-        self.build_selection_map(self.collision_obj.build_process.building_directory)
-        self.select_buildings()
-        self.show_graph(self.collision_obj.build_process.graph, show_entry_points=True)
+    def start(self):
+        while True:
+            self.build_selection_map(self.collision_obj.build_process.building_directory)
+            self.select_buildings()
+            self.show_graph(self.collision_obj.build_process.graph, show_entry_points=True, show_bounding_box=False,
+                            show_graph_network=True)
 
     def build_selection_map(self, buildings):
         for i, building in enumerate(buildings):
@@ -42,10 +55,9 @@ class ShapefileNavigator:
         print("\n\nSelect a number to represent the destination building:")
         selection = int(input())
         self.destination_node = self.selection_map[selection]
-        print("You selected " + str(self.destination_node))
+        print("You selected " + str(self.destination_node) + "\n\n")
 
     def show_graph(self, graph, show_graph_network=False, show_entry_points=False, show_bounding_box=False):
-
         path = path_finder.nx_shortest_path(graph, self.collision_obj.build_process.building_directory[self.start_node],
                                             self.collision_obj.build_process.building_directory[self.destination_node])
         x = list()

@@ -4,21 +4,21 @@ from shapely.geometry import box, Point
 
 
 class CollisionDetection:
-    def __init__(self, read_obj):
+    def __init__(self, read_obj, num_rows=2, num_cols=2):
         self.read_obj = read_obj
         self.buildings_sf = read_obj.buildings_sf
         self.pathways_sf = read_obj.pathways_sf
         self.build_process = ProcessShapeFiles()
-        self.bboxes = self.create_field()
+        self.bboxes = self.create_field(num_rows, num_cols)
         self.scan()
 
-    def create_field(self):
+    def create_field(self, rows=2, cols=2):
         self.build_process.process(self.buildings_sf)
         self.build_process.process(self.pathways_sf)
 
         b = BoundingBoxTracker(self.build_process.bb_max, self.build_process.bb_min)
         # TODO: FIGURE OUT HOW TO DETERMINE NUMBER OF BOUNDING BOXES
-        b.create_bounding_boxes(2, 2)
+        b.create_bounding_boxes(num_rows=rows, num_cols=cols)
         return b.get_bboxes()
 
     def scan(self):

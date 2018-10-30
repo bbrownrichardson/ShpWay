@@ -35,7 +35,7 @@ class BoundingBoxTracker:
         coord = ((self.x_max + self.x_min) / float(2), (self.y_max + self.y_min) / float(2))
         return coord
 
-    def create_bounding_boxes(self, num_rows, num_cols):
+    def create_bounding_boxes(self, num_rows=2, num_cols=2):
         bottom_left = (self.x_min, self.y_min)
         top_left = (self.x_min, self.y_max)
         # bottom_right = (self.x_max, self.y_min)

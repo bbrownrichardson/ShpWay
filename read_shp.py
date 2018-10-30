@@ -3,6 +3,7 @@ import mplleaflet
 import shapefile
 import networkx as nx
 from shapely.geometry import Polygon
+import math
 
 NULL = 0
 POINT = 1
@@ -114,7 +115,7 @@ class ProcessShapeFiles:
             for point in shape.points:
                 self.graph.add_node(point, pos=point)
                 if counter > 0:
-                    self.graph.add_edge(prev_point, point)
+                    self.graph.add_edge(prev_point, point, weight=self.distance_calculation(prev_point, point))
                 prev_point = point
                 counter += 1
 
@@ -148,3 +149,11 @@ class ProcessShapeFiles:
     def midpoint(x1, y1, x2, y2):
         coord = ((x1 + x2)/2, (y1 + y2)/2)
         return coord
+
+    @staticmethod
+    def distance_calculation(coord1, coord2):
+        x1 = coord1[0]
+        y1 = coord1[1]
+        x2 = coord2[0]
+        y2 = coord2[1]
+        return math.hypot(x2 - x1, y2 - y1)
