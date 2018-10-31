@@ -4,7 +4,6 @@ from collision_detector import CollisionDetection
 import networkx as nx
 import matplotlib.pyplot as plt
 import mplleaflet
-import time
 
 
 class ShapefileNavigator:
@@ -20,17 +19,9 @@ class ShapefileNavigator:
 
     def setup_spatial_partitioning(self):
         if self.path_dir.strip() is '' or self.building_dir.strip() is '':
-            # TODO: REMOVE time FUNCTIONS LATER
-            start = time.time()
             self.collision_obj = CollisionDetection(ReadShapeFiles())
-            end = time.time()
-            print("Collision Detection took " + str(end - start) + "\n")
         else:
-            # TODO: REMOVE time FUNCTIONS LATER
-            start = time.time()
             self.collision_obj = CollisionDetection(ReadShapeFiles(pathways=self.path_dir, buildings=self.building_dir))
-            end = time.time()
-            print("Collision Detection took " + str(end - start) + "\n")
 
     def start(self):
         while True:
