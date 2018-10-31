@@ -12,7 +12,7 @@ class CollisionDetection:
         self.bboxes = self.create_field(num_rows, num_cols)
         self.scan()
 
-    def create_field(self, rows=2, cols=2):
+    def create_field(self, rows, cols):
         self.build_process.process(self.buildings_sf)
         self.build_process.process(self.pathways_sf)
 
@@ -50,9 +50,23 @@ class CollisionDetection:
 
     def scan_building_entry_points(self, directory):
         polygon = directory['building_shp_reference']
+        closest_node = None
+        shortest_distance = None
+        count = 0
         for bbox in directory['building_bbox_dir']:
+            if closest_node is None:
+                closest_node = (float(self.bboxes[bbox][0][0]), float(self.bboxes[bbox][0][1]))
+                shortest_distance = polygon.exterior.distance(Point(closest_node))
             for node in self.bboxes[bbox]:
                 node_pt = Point((float(node[0]), float(node[1])))
+                temp_dist = polygon.exterior.distance(node_pt)
+
                 if node_pt.intersects(polygon):
+                    count += 1
                     directory['building_entry_nodes'].append((float(node[0]), float(node[1])))
+                if temp_dist < shortest_distance:
+                    closest_node = (float(node[0]), float(node[1]))
+                    shortest_distance = temp_dist
+        if count == 0:
+            directory['building_entry_nodes'].append(closest_node)
 
