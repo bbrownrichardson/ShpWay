@@ -16,7 +16,7 @@ y_as = list()
 
 for i in range(2, 100, 1):
     start = time.time()
-    collision_obj = CollisionDetection(ReadShapeFiles(), num_rows=2, num_cols=2)
+    collision_obj = CollisionDetection(ReadShapeFiles(), num_rows=i, num_cols=i)
     end = time.time()
     duration = end - start
     print(str(i) + ": Collision Detection took " + str(duration) + "\n")
