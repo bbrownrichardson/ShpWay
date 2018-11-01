@@ -9,7 +9,15 @@ class BoundingBoxTracker:
             abs_min = abs_max
             abs_max = temp
 
+        x_max_temp = abs_max[0] + .00000001
+        y_max_temp = abs_max[1] + .00000001
+        x_min_temp = abs_min[0] + .00000001
+        y_min_temp = abs_min[1] + .00000001
+        abs_max = (x_max_temp, y_max_temp)
+        abs_min = (x_min_temp, y_min_temp)
+
         self.bounding_boxes = defaultdict(list)
+        self.grid = list()
 
         self.absolute_max = abs_max
         self.x_max = self.absolute_max[0]
@@ -35,7 +43,7 @@ class BoundingBoxTracker:
         coord = ((self.x_max + self.x_min) / float(2), (self.y_max + self.y_min) / float(2))
         return coord
 
-    def create_bounding_boxes(self, num_rows=2, num_cols=2):
+    def create_bounding_boxes(self, num_rows, num_cols):
         bottom_left = (self.x_min, self.y_min)
         top_left = (self.x_min, self.y_max)
         # bottom_right = (self.x_max, self.y_min)
@@ -62,6 +70,16 @@ class BoundingBoxTracker:
             top_x = btm_x + col_padding
             btm_y += row_padding
             top_y = btm_y + row_padding
+
+    def create_bbox_grid(self, num_rows, num_cols):
+        self.grid = list()
+
+        for row in range(num_rows):
+            temp_row = list()
+            for col in range(num_cols):
+                temp_col = list()
+                temp_row.append(temp_col)
+            self.grid.append(temp_row)
 
     def get_bboxes(self):
         return self.bounding_boxes
