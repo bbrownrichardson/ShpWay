@@ -7,6 +7,7 @@ class CollisionDetection:
     def __init__(self, read_obj, num_rows=2, num_cols=2):
         self.bbox_obj = None
         self.cells = None
+        self.bboxes = None
         self.num_rows = num_rows
         self.num_cols = num_cols
         self.read_obj = read_obj
@@ -27,6 +28,8 @@ class CollisionDetection:
 
         self.bbox_obj.create_bbox_grid(rows, cols)
         self.cells = self.bbox_obj.grid
+        self.bbox_obj.create_bounding_boxes(rows, cols)
+        self.bboxes = self.bbox_obj.bounding_boxes
 
     def scan(self):
         self.scan_nodes_to_cell()
