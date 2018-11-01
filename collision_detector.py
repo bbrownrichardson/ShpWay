@@ -57,8 +57,7 @@ class CollisionDetection:
             # print(directory['building_shp_reference'])
             # print(directory['building_entry_nodes'])
 
-            polygon = directory['building_shp_reference']
-            self.assign_cell_to_building(polygon, directory)
+            self.assign_cell_to_building(directory['building_shp_reference'], directory)
             # for bbox in self.bboxes:
             #     bbox_poly = box(bbox[0][0], bbox[0][1], bbox[1][0], bbox[1][1])
             #     if polygon.intersects(bbox_poly):
@@ -90,23 +89,25 @@ class CollisionDetection:
         closest_node = None
         shortest_distance = None
         count = 0
+
         for cell in directory['building_bbox_dir']:
             x = cell[0]
             y = cell[1]
 
-            if closest_node is None:
-                closest_node = (float(self.cells[x][y][0][0]), float(self.cells[x][y][0][1]))
-                shortest_distance = polygon.exterior.distance(Point(closest_node))
-            for node in self.cells[x][y]:
-                node_pt = Point((float(node[0]), float(node[1])))
-                temp_dist = polygon.exterior.distance(node_pt)
+            if len(self.cells[x][y]) != 0:
+                if closest_node is None:
+                    closest_node = (float(self.cells[x][y][0][0]), float(self.cells[x][y][0][1]))
+                    shortest_distance = polygon.exterior.distance(Point(closest_node))
+                for node in self.cells[x][y]:
+                    node_pt = Point((float(node[0]), float(node[1])))
+                    temp_dist = polygon.exterior.distance(node_pt)
 
-                if node_pt.intersects(polygon):
-                    count += 1
-                    directory['building_entry_nodes'].append((float(node[0]), float(node[1])))
-                if temp_dist < shortest_distance:
-                    closest_node = (float(node[0]), float(node[1]))
-                    shortest_distance = temp_dist
+                    if node_pt.intersects(polygon):
+                        count += 1
+                        directory['building_entry_nodes'].append((float(node[0]), float(node[1])))
+                    if temp_dist < shortest_distance:
+                        closest_node = (float(node[0]), float(node[1]))
+                        shortest_distance = temp_dist
         if count == 0:
             directory['building_entry_nodes'].append(closest_node)
 
