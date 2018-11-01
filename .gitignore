@@ -103,6 +103,6 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-# personal adds
+# personal adds 
 .idea/
 _map.html
