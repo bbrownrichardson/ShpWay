@@ -8,13 +8,14 @@ class CollisionDetection:
         self.bbox_obj = None
         self.cells = None
         self.bboxes = None
+
         self.num_rows = num_rows
         self.num_cols = num_cols
-        self.read_obj = read_obj
+
         self.buildings_sf = read_obj.buildings_sf
         self.pathways_sf = read_obj.pathways_sf
         self.build_process = ProcessShapeFiles()
-        self.create_field(num_rows, num_cols)
+        self.create_field(self.num_rows, self.num_cols)
         self.scan()
 
     def create_field(self, rows, cols):
