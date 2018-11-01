@@ -13,6 +13,7 @@ class BoundingBoxTracker:
         y_max_temp = abs_max[1] + .00000001
         x_min_temp = abs_min[0] + .00000001
         y_min_temp = abs_min[1] + .00000001
+
         abs_max = (x_max_temp, y_max_temp)
         abs_min = (x_min_temp, y_min_temp)
 
