@@ -15,11 +15,14 @@ y_bell = list()
 x_as = list()
 y_as = list()
 
-workbook = xlsxwriter.Workbook('TimeComplexity')
+workbook = xlsxwriter.Workbook('TimeComplexity.xlsx')
 time_size = workbook.add_worksheet(name='time and grid size')
 dij_size = workbook.add_worksheet(name='Dijkstra')
 bell = workbook.add_worksheet(name='Ford Bellman')
 astar = workbook.add_worksheet(name='A-star')
+
+denison_buildings = r'C:\Users\rbrib\OneDrive\Documents\College\The College of Wooster\Senior\I.S\GIS Database\Denison\shape\buildings.shp'
+denison_pathways = r'C:\Users\rbrib\OneDrive\Documents\College\The College of Wooster\Senior\I.S\GIS Database\Denison\shape\roads.shp'
 
 time_list = list()
 dij_list = list()
@@ -35,8 +38,13 @@ for i in range(2, 100, 1):
     y.append(duration)
     time_list.append([i*i, duration])
 
+    # COW
     taylor = collision_obj.build_process.building_directory['Taylor Hall']
     lowry = collision_obj.build_process.building_directory['Lowry Student Center']
+
+    # DENISON
+    # taylor = collision_obj.build_process.building_directory['Shaw Hall']
+    # lowry = collision_obj.build_process.building_directory['Higley Hall']
 
     start = time.time()
     nx_shortest_path(collision_obj.build_process.graph, taylor, lowry)
