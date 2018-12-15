@@ -106,7 +106,8 @@ class CollisionDetection:
                     node_pt = Point((float(node[0]), float(node[1])))
                     temp_dist = polygon.exterior.distance(node_pt)
 
-                    if node_pt.intersects(polygon):
+                    if node_pt.intersects(polygon) and (float(node[0]), float(node[1])) not in \
+                            directory['building_entry_nodes']:
                         count += 1
                         directory['building_entry_nodes'].append((float(node[0]), float(node[1])))
                     if temp_dist < shortest_distance:
