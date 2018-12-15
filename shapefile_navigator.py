@@ -19,9 +19,10 @@ class ShapefileNavigator:
 
     def setup_spatial_partitioning(self):
         if self.path_dir.strip() is '' or self.building_dir.strip() is '':
-            self.collision_obj = CollisionDetection(ReadShapeFiles())
+            self.collision_obj = CollisionDetection(ReadShapeFiles(), num_cols=15, num_rows=15)
         else:
-            self.collision_obj = CollisionDetection(ReadShapeFiles(pathways=self.path_dir, buildings=self.building_dir))
+            self.collision_obj = CollisionDetection(ReadShapeFiles(pathways=self.path_dir, buildings=self.building_dir),
+                                                    num_cols=15, num_rows=15)
 
     def start(self):
         while True:
