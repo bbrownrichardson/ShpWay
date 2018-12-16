@@ -4,55 +4,52 @@ from shapely.geometry import box, Point
 
 
 class CollisionDetection:
-    def __init__(self, read_obj, num_rows=2, num_cols=2):
+    def __init__(self, read_obj, rows=None, cols=None):
         self.bbox_obj = None
         self.cells = None
         self.bboxes = None
 
-        self.num_rows = num_rows
-        self.num_cols = num_cols
+        if rows is not None and cols is not None:
+            self.num_rows = rows
+            self.num_cols = cols
+        else:
+            self.num_rows = None
+            self.num_cols = None
 
         self.buildings_sf = read_obj.buildings_sf
         self.pathways_sf = read_obj.pathways_sf
+
         self.build_process = ProcessShapeFiles()
-        self.create_field(self.num_rows, self.num_cols)
+        self.create_field(rows=self.num_rows, cols=self.num_cols)
         self.scan()
 
-    def create_field(self, rows, cols):
+    def create_field(self, rows=None, cols=None):
         self.build_process.process(self.buildings_sf)
         self.build_process.process(self.pathways_sf)
 
-        self.bbox_obj = BoundingBoxTracker(self.build_process.bb_max, self.build_process.bb_min)
-        # TODO: FIGURE OUT HOW TO DETERMINE NUMBER OF BOUNDING BOXES
-        # self.bbox_obj.create_bounding_boxes(rows, cols)
-        # return self.bbox_obj.get_bboxes()
-
-        self.bbox_obj.create_bbox_grid(rows, cols)
+        self.bbox_obj = BoundingBoxTracker(self.build_process.bb_max, self.build_process.bb_min,
+                                           self.build_process.polygon_heights, self.build_process.polygon_widths,
+                                           num_rows=rows, num_cols=cols)
         self.cells = self.bbox_obj.grid
-        self.bbox_obj.create_bounding_boxes(rows, cols)
         self.bboxes = self.bbox_obj.bounding_boxes
+        self.num_rows = self.bbox_obj.num_rows
+        self.num_cols = self.bbox_obj.num_cols
 
     def scan(self):
         self.scan_nodes_to_cell()
         self.scan_building_to_cell()
 
     def scan_nodes_to_cell(self):
-        bbox_max = self.bbox_obj.get_absolute_max()
-        bbox_min = self.bbox_obj.get_absolute_min()
+        bbox_max = self.bbox_obj.absolute_max
+        bbox_min = self.bbox_obj.absolute_min
         for node in self.build_process.graph.nodes:
             if isinstance(node, tuple):
-                # node_pt = Point((float(node[0]), float(node[1])))
-                # for bbox in self.bboxes:
-                #     bbox_poly = box(bbox[0][0], bbox[0][1], bbox[1][0], bbox[1][1])
-                #     if node_pt.intersects(bbox_poly):
-                #         self.bboxes[bbox].append((float(node[0]), float(node[1])))
                 x = node[0]
                 y = node[1]
 
-                x_cell = int((((x - bbox_min[0]) / (bbox_max[0] - bbox_min[0])) * self.num_cols))
-                y_cell = int((((y - bbox_min[1]) / (bbox_max[1] - bbox_min[1])) * self.num_rows))
-
-                self.cells[x_cell][y_cell].append((float(node[0]), float(node[1])))
+                col_cell = int((((x - bbox_min[0]) / (bbox_max[0] - bbox_min[0])) * self.num_cols))
+                row_cell = int((((y - bbox_min[1]) / (bbox_max[1] - bbox_min[1])) * self.num_rows))
+                self.cells[row_cell][col_cell].append((float(node[0]), float(node[1])))
 
     def scan_building_to_cell(self):
         for building, directory in self.build_process.building_directory.items():
@@ -61,32 +58,25 @@ class CollisionDetection:
             # print(directory['building_shp_reference'])
             # print(directory['building_entry_nodes'])
 
-            self.assign_cell_to_building(directory['building_shp_reference'], directory)
-            # for bbox in self.bboxes:
-            #     bbox_poly = box(bbox[0][0], bbox[0][1], bbox[1][0], bbox[1][1])
-            #     if polygon.intersects(bbox_poly):
-            #         directory['building_bbox_dir'].append(bbox)
+            self.assign_cells_to_building(directory['building_shp_reference'], directory)
             self.scan_building_entry_points(directory)
 
-    def assign_cell_to_building(self, polygon, directory):
-        bbox_max = self.bbox_obj.get_absolute_max()
-        bbox_min = self.bbox_obj.get_absolute_min()
+    def assign_cells_to_building(self, polygon, directory):
+        bbox_max = self.bbox_obj.absolute_max
+        bbox_min = self.bbox_obj.absolute_min
 
         min_xy = (polygon.bounds[0], polygon.bounds[1])
         max_xy = (polygon.bounds[2], polygon.bounds[3])
-        min_x_max_y = (polygon.bounds[0], polygon.bounds[3])
-        max_x_min_y = (polygon.bounds[2], polygon.bounds[1])
 
-        pts = [min_xy, max_xy, min_x_max_y, max_x_min_y]
+        min_cell = (int((((min_xy[0] - bbox_min[0])/(bbox_max[0] - bbox_min[0])) * self.num_cols)),
+                    int((((min_xy[1] - bbox_min[1]) / (bbox_max[1] - bbox_min[1])) * self.num_rows)))
 
-        for pt in pts:
-            x = pt[0]
-            y = pt[1]
+        max_cell = (int((((max_xy[0] - bbox_min[0])/(bbox_max[0] - bbox_min[0])) * self.num_cols)),
+                    int((((max_xy[1] - bbox_min[1]) / (bbox_max[1] - bbox_min[1])) * self.num_rows)))
 
-            x_cell = int((((x - bbox_min[0])/(bbox_max[0] - bbox_min[0])) * self.num_cols))
-            y_cell = int((((y - bbox_min[1])/(bbox_max[1] - bbox_min[1])) * self.num_rows))
-
-            directory['building_bbox_dir'].append((x_cell, y_cell))
+        for i in range(min_cell[0], max_cell[0] + 1, 1):
+            for j in range(min_cell[1], max_cell[1] + 1, 1):
+                directory['building_bbox_dir'].append((j, i))
 
     def scan_building_entry_points(self, directory):
         polygon = directory['building_shp_reference']

@@ -1,9 +1,10 @@
 from collections import defaultdict
 import math
+from statistics import median
 
 
 class BoundingBoxTracker:
-    def __init__(self, abs_max, abs_min):
+    def __init__(self, abs_max, abs_min, heights, widths, num_rows=None, num_cols=None):
         if abs_min > abs_max:
             temp = abs_min
             abs_min = abs_max
@@ -32,6 +33,15 @@ class BoundingBoxTracker:
         self.x_mid = self.mid_point[0]
         self.y_mid = self.mid_point[1]
 
+        self.absolute_height = None
+        self.absolute_width = None
+        self.num_rows = num_rows
+        self.num_cols = num_cols
+        if self.num_rows is None and self.num_cols is None:
+            self.calculate_num_rows_cols(median(widths), median(heights))
+        self.create_bbox_grid(self.num_rows, self.num_cols)
+        self.create_bounding_boxes(self.num_rows, self.num_cols)
+
     @staticmethod
     def distance_calculation(coord1, coord2):
         x1 = coord1[0]
@@ -43,6 +53,16 @@ class BoundingBoxTracker:
     def mid_point_calculation(self):
         coord = ((self.x_max + self.x_min) / float(2), (self.y_max + self.y_min) / float(2))
         return coord
+
+    def calculate_abs_len_width(self):
+        self.absolute_width = self.distance_calculation(self.absolute_min, (self.x_max, self.y_min))
+        self.absolute_height = self.distance_calculation((self.x_max, self.y_min), self.absolute_max)
+
+    def calculate_num_rows_cols(self, median_width, median_height):
+        self.calculate_abs_len_width()
+
+        self.num_rows = int(self.absolute_height/median_height)
+        self.num_cols = int(self.absolute_width/median_width)
 
     def create_bounding_boxes(self, num_rows, num_cols):
         bottom_left = (self.x_min, self.y_min)
@@ -81,15 +101,3 @@ class BoundingBoxTracker:
                 temp_col = list()
                 temp_row.append(temp_col)
             self.grid.append(temp_row)
-
-    def get_bboxes(self):
-        return self.bounding_boxes
-
-    def get_absolute_max(self):
-        return self.absolute_max
-
-    def get_absolute_min(self):
-        return self.absolute_min
-
-    def get_midpoint(self):
-        return self.mid_point
