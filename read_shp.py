@@ -48,6 +48,9 @@ class ProcessShapeFiles:
         self.bb_mn_x = None
         self.bb_mn_y = None
 
+        self.polygon_widths = list()
+        self.polygon_heights = list()
+
         self.graph = nx.Graph()
         self.building_directory = dict()
 
@@ -60,7 +63,9 @@ class ProcessShapeFiles:
     def process_polygons(self, sf):
         records = list(sf.iterRecords())
         for i, shape in enumerate(sf.shapes()):
+            # TODO: TURN OFF LATER
             self.draw_polygons(shape)
+            self.calculate_polygon_size(shape.bbox)
 
             # pos = self.node_position(sf, i)
             name = records[i][1]
@@ -90,6 +95,22 @@ class ProcessShapeFiles:
 
         self.bb_max = (self.bb_mx_x, self.bb_mx_y)
         self.bb_min = (self.bb_mn_x, self.bb_mn_y)
+
+    def calculate_polygon_size(self, bbox):
+        mn_x = bbox[0]
+        mn_y = bbox[1]
+        mx_x = bbox[2]
+        mx_y = bbox[3]
+
+        mn = (mn_x, mn_y)
+        mn_x_mx_y = (mx_x, mn_y)
+        mx = (mx_x, mx_y)
+
+        width = self.distance_calculation(mn, mn_x_mx_y)
+        height = self.distance_calculation(mn_x_mx_y, mx)
+
+        self.polygon_widths.append(width)
+        self.polygon_heights.append(height)
 
     def process_polylines(self, sf):
         for shape in sf.shapes():
@@ -127,12 +148,6 @@ class ProcessShapeFiles:
         x = [j[0] for j in shape.points[:]]
         y = [j[1] for j in shape.points[:]]
         plt.plot(x, y)
-
-    def get_max_pt(self):
-        return self.bb_max
-
-    def get_min_pt(self):
-        return self.bb_min
 
     def get_graph(self):
         pos = nx.get_node_attributes(self.graph, 'pos')

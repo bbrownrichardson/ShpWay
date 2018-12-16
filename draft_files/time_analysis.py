@@ -33,7 +33,7 @@ for i in range(2, 101, 1):
     print("Currently on " + str(i), "* " + str(i))
 
     start = time.time()
-    collision_obj = CollisionDetection(ReadShapeFiles(), num_rows=i, num_cols=i)
+    collision_obj = CollisionDetection(ReadShapeFiles(), rows=i, cols=i)
     end = time.time()
     duration = end - start
 
