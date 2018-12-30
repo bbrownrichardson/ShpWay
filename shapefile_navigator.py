@@ -27,8 +27,8 @@ class ShapefileNavigator:
         while True:
             self.build_selection_map(self.collision_obj.build_process.building_directory)
             self.select_buildings()
-            self.show_graph(self.collision_obj.build_process.graph, show_entry_points=True, show_bounding_box=True,
-                            show_graph_network=False)
+            self.show_graph(self.collision_obj.build_process.graph, show_entry_points=True, show_bounding_box=False,
+                            show_graph_network=True)
 
     def build_selection_map(self, buildings):
         for i, building in enumerate(buildings):

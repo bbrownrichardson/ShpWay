@@ -18,4 +18,5 @@ def nx_shortest_path(graph, src, dst, alg_name='dijkstra_path'):
                 if temp_length < path_length:
                     path = algorithm(graph, source=src_entrance, target=dst_entrance)
                     path_length = temp_length
+
     return path
