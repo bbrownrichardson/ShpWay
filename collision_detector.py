@@ -82,8 +82,6 @@ class CollisionDetection:
 
     def scan_building_entry_points(self, directory):
         polygon = directory['building_shp_reference']
-        closest_node = None
-        shortest_distance = None
         count = 0
 
         for cell in directory['building_bbox_dir']:
@@ -91,20 +89,14 @@ class CollisionDetection:
             y = cell[1]
 
             if len(self.cells[x][y]) != 0:
-                if closest_node is None:
-                    closest_node = (float(self.cells[x][y][0][0]), float(self.cells[x][y][0][1]))
-                    shortest_distance = polygon.exterior.distance(Point(closest_node))
                 for node in self.cells[x][y]:
                     node_pt = Point((float(node[0]), float(node[1])))
-                    temp_dist = polygon.exterior.distance(node_pt)
 
                     if node_pt.intersects(polygon) and (float(node[0]), float(node[1])) not in \
                             directory['building_entry_nodes']:
                         count += 1
                         directory['building_entry_nodes'].append((float(node[0]), float(node[1])))
-                    if temp_dist < shortest_distance:
-                        closest_node = (float(node[0]), float(node[1]))
-                        shortest_distance = temp_dist
+
         if count == 0:
             # directory['building_entry_nodes'].append(closest_node)
             node = self.build_process.midpoint(polygon.bounds[0], polygon.bounds[1], polygon.bounds[2], polygon.bounds[3])
