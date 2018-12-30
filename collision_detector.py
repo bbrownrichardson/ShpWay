@@ -1,6 +1,7 @@
 from read_shp import ProcessShapeFiles
 from bounding_boxes import BoundingBoxTracker
 from shapely.geometry import box, Point
+from scipy import spatial
 
 
 class CollisionDetection:
@@ -42,6 +43,7 @@ class CollisionDetection:
     def scan_nodes_to_cell(self):
         bbox_max = self.bbox_obj.absolute_max
         bbox_min = self.bbox_obj.absolute_min
+
         for node in self.build_process.graph.nodes:
             if isinstance(node, tuple):
                 x = node[0]
@@ -104,5 +106,11 @@ class CollisionDetection:
                         closest_node = (float(node[0]), float(node[1]))
                         shortest_distance = temp_dist
         if count == 0:
-            directory['building_entry_nodes'].append(closest_node)
+            # directory['building_entry_nodes'].append(closest_node)
+            node = self.build_process.midpoint(polygon.bounds[0], polygon.bounds[1], polygon.bounds[2], polygon.bounds[3])
+            nodes = self.build_process.graph.nodes
+            tree = spatial.KDTree(nodes)
+            tree.query([node])
+            output = tree.query([node])
+            directory['building_entry_nodes'].append(list(self.build_process.graph.nodes).__getitem__(output[1][0]))
 
