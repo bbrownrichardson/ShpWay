@@ -9,24 +9,20 @@ class CollisionDetection:
         self.bbox_obj = None
         self.cells = None
         self.bboxes = None
+        self.build_process = ProcessShapeFiles()
 
-        if isinstance(rows, int) and isinstance(cols, int):
+        if (isinstance(rows, int) and rows > 1) and (isinstance(cols, int) and cols > 1):
             self.__num_rows = rows
             self.__num_cols = cols
         else:
             self.__num_rows = None
             self.__num_cols = None
 
-        self.buildings_sf = read_obj.buildings_sf
-        self.pathways_sf = read_obj.pathways_sf
-
-        self.build_process = ProcessShapeFiles()
-        self.__create_field(rows=self.__num_rows, cols=self.__num_cols)
+        self.__create_field(read_obj, rows=self.__num_rows, cols=self.__num_cols)
         self.__scan()
 
-    def __create_field(self, rows=None, cols=None):
-        self.build_process.process(self.buildings_sf)
-        self.build_process.process(self.pathways_sf)
+    def __create_field(self, read_obj, rows=None, cols=None):
+        self.build_process.process(read_obj)
 
         self.bbox_obj = BoundingBoxTracker(self.build_process.bb_max, self.build_process.bb_min,
                                            self.build_process.polygon_heights, self.build_process.polygon_widths,

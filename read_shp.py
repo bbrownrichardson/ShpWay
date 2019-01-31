@@ -1,8 +1,10 @@
 import shapefile
 import networkx as nx
-from shapely.geometry import Polygon
+from shapely.geometry import Polygon, box
 import math
 
+
+# Shapefile Represented Types
 NULL = 0
 POINT = 1
 POLYLINE = 3
@@ -20,38 +22,53 @@ MULTIPATCH = 31
 
 
 class ReadShapeFiles:
-    def __init__(self, pathways="shapefiles/roads.shp", visitation_points="shapefiles/buildings.shp"):
-
+    def __init__(self, pathways="shapefiles/roads.shp", destinations="shapefiles/buildings.shp"):
         self.__pathways_sf = None
-        self.__buildings_sf = None
-        self.__integrity_check(pathways, visitation_points)
+        self.__destinations_sf = None
+        self.__integrity_check(pathways, destinations)
 
     @property
     def pathways_sf(self):
         return self.__pathways_sf
 
     @property
-    def buildings_sf(self):
-        return self.__buildings_sf
+    def destinations_sf(self):
+        return self.__destinations_sf
 
-    def __integrity_check(self, pathways, buildings):
+    def __integrity_check(self, pathways, destinations):
+        """
+        Ensure given shapefiles are supported and are aligned
+        :param pathways: Shapefile containing polyline shapes
+        :param destinations: Shapefile containing polygon shapes (Currently)
+        :return: None
+        """
         pathways_sf = self.__read_files(pathways)
-        buildings_sf = self.__read_files(buildings)
-        if pathways_sf.shape(0).shapeType == POLYLINE and buildings_sf.shape(0).shapeType == POLYGON:
-            self.__pathways_sf = pathways_sf
-            self.__buildings_sf = buildings_sf
-        elif pathways_sf.shape(0).shapeType == POLYGON and buildings_sf.shape(0).shapeType == POLYLINE:
-            self.__pathways_sf = buildings_sf
-            self.__buildings_sf = pathways_sf
+        destinations_sf = self.__read_files(destinations)
+
+        p_bbox = box(pathways_sf.bbox[0], pathways_sf.bbox[1], pathways_sf.bbox[2], pathways_sf.bbox[3])
+        v_bbox = box(destinations_sf.bbox[0], destinations_sf.bbox[1], destinations_sf.bbox[2], destinations_sf.bbox[3])
+
+        if pathways_sf.shapeType == POLYLINE and destinations_sf.shapeType == POLYGON:
+            if p_bbox.intersects(v_bbox):
+                self.__pathways_sf = pathways_sf
+                self.__destinations_sf = destinations_sf
+            else:
+                raise Exception("Scope of included shapefiles are not aligned")
+        elif pathways_sf.shapeType == POLYGON and destinations_sf.shapeType == POLYLINE:
+            if v_bbox.intersects(p_bbox):
+                self.__pathways_sf = destinations_sf
+                self.__destinations_sf = pathways_sf
+            else:
+                raise Exception("Scope of included shapefiles are not aligned")
         else:
-            raise ValueError("The included shapefiles are not supported")
+            raise Exception("The included shapefiles are not supported")
 
     @staticmethod
     def __read_files(file_path):
         """
         Apply shapefile reader to main file
         :param file_path: main file selected
-        :return: reference to reader of selected files
+        :return: reference to reader of selected file
         """
         sf = shapefile.Reader(file_path)
         # sf = shapefile.Reader(shp=open(shp_file, "rb"), dbf=open(dbf_file, "rb"))
@@ -61,12 +78,7 @@ class ReadShapeFiles:
 class ProcessShapeFiles:
     def __init__(self):
         self.__bb_max = None
-        self.__bb_mx_x = None
-        self.__bb_mx_y = None
-
         self.__bb_min = None
-        self.__bb_mn_x = None
-        self.__bb_mn_y = None
 
         self.__polygon_widths = list()
         self.__polygon_heights = list()
@@ -98,11 +110,22 @@ class ProcessShapeFiles:
     def building_directory(self):
         return self.__building_directory
 
-    def process(self, sf):
-        if sf.shapes()[0].shapeType == POLYGON:
-            self.__process_polygons(sf)
-        elif sf.shapes()[0].shapeType == POLYLINE:
-            self.__process_polylines(sf)
+    def process(self, read_shp_obj):
+        if isinstance(read_shp_obj, ReadShapeFiles):
+            self.__process_polygons(read_shp_obj.destinations_sf)
+            self.__process_poly_lines(read_shp_obj.pathways_sf)
+
+            min_x = min(read_shp_obj.pathways_sf.bbox[0], read_shp_obj.destinations_sf.bbox[0])
+            min_y = min(read_shp_obj.pathways_sf.bbox[1], read_shp_obj.destinations_sf.bbox[1])
+
+            max_x = max(read_shp_obj.pathways_sf.bbox[2], read_shp_obj.destinations_sf.bbox[2])
+            max_y = max(read_shp_obj.pathways_sf.bbox[3], read_shp_obj.destinations_sf.bbox[3])
+
+            self.__bb_max = (max_x, max_y)
+            self.__bb_min = (min_x, min_y)
+
+        else:
+            raise Exception("Given object is not supported. Please use a ReadShapefiles object")
 
     def __process_polygons(self, sf):
         records = list(sf.iterRecords())
@@ -115,25 +138,6 @@ class ProcessShapeFiles:
                 'building_shp_reference':  Polygon(shape.points),
                 'building_entry_nodes': list()
             }
-
-            if self.__bb_mx_x is None and self.__bb_mx_y is None and self.__bb_mn_x is None and self.__bb_mn_y is None:
-                self.__bb_mn_x = shape.bbox[0]
-                self.__bb_mn_y = shape.bbox[1]
-                self.__bb_mx_x = shape.bbox[2]
-                self.__bb_mx_y = shape.bbox[3]
-
-            else:
-                if self.__bb_mn_x > shape.bbox[0]:
-                    self.__bb_mn_x = shape.bbox[0]
-                if self.__bb_mn_y > shape.bbox[1]:
-                    self.__bb_mn_y = shape.bbox[1]
-                if self.__bb_mx_x < shape.bbox[2]:
-                    self.__bb_mx_x = shape.bbox[2]
-                if self.__bb_mx_y < shape.bbox[3]:
-                    self.__bb_mx_y = shape.bbox[3]
-
-        self.__bb_max = (self.__bb_mx_x, self.__bb_mx_y)
-        self.__bb_min = (self.__bb_mn_x, self.__bb_mn_y)
 
     def __calculate_polygon_size(self, bbox):
         mn_x = bbox[0]
@@ -151,23 +155,10 @@ class ProcessShapeFiles:
         self.__polygon_widths.append(width)
         self.__polygon_heights.append(height)
 
-    def __process_polylines(self, sf):
+    def __process_poly_lines(self, sf):
         for shape in sf.shapes():
             prev_point = None
             counter = 0
-
-            if self.__bb_mx_x is None and self.__bb_mx_y is None and self.__bb_mn_x is None and self.__bb_mn_y is None:
-                self.__bb_mn_x = shape.bbox[0], self.__bb_mn_y = shape.bbox[1]
-                self.__bb_mx_x = shape.bbox[2], self.__bb_mx_y = shape.bbox[3]
-            else:
-                if self.__bb_mn_x > shape.bbox[0]:
-                    self.__bb_mn_x = shape.bbox[0]
-                if self.__bb_mn_y > shape.bbox[1]:
-                    self.__bb_mn_y = shape.bbox[1]
-                if self.__bb_mx_x < shape.bbox[2]:
-                    self.__bb_mx_x = shape.bbox[2]
-                if self.__bb_mx_y < shape.bbox[3]:
-                    self.__bb_mx_y = shape.bbox[3]
 
             for point in shape.points:
                 self.__graph.add_node(point, pos=point)
@@ -175,9 +166,6 @@ class ProcessShapeFiles:
                     self.__graph.add_edge(prev_point, point, weight=self.distance_calculation(prev_point, point))
                 prev_point = point
                 counter += 1
-
-        self.__bb_max = (self.__bb_mx_x, self.__bb_mx_y)
-        self.__bb_min = (self.__bb_mn_x, self.__bb_mn_y)
 
     @staticmethod
     def midpoint(x1, y1, x2, y2):
