@@ -26,8 +26,8 @@ class ShapefileNavigator:
         if self.path_dir.strip() is '' or self.building_dir.strip() is '':
             self._collision_obj = CollisionDetection(ReadShapeFiles())
         else:
-            self._collision_obj = CollisionDetection(ReadShapeFiles(pathways=self.path_dir, visitation_points=self.building_dir)
-                                                     )
+            self._collision_obj = CollisionDetection(ReadShapeFiles(pathways=self.path_dir,
+                                                                    destinations=self.building_dir))
 
     def start(self):
         while True:
