@@ -1,6 +1,6 @@
 from read_shp import ReadShapeFiles
 import path_finder
-from collision_detector import CollisionDetection
+from collision_detection import CollisionDetection
 import networkx as nx
 import matplotlib.pyplot as plt
 import mplleaflet
@@ -31,9 +31,9 @@ class ShapefileNavigator:
 
     def start(self):
         while True:
-            self.build_selection_map(self._collision_obj.build_process.building_directory)
+            self.build_selection_map(self._collision_obj.build_graph.building_directory)
             self.select_buildings()
-            self.show_graph(self._collision_obj.build_process.graph, show_entry_points=self._show_entry_points,
+            self.show_graph(self._collision_obj.build_graph.graph, show_entry_points=self._show_entry_points,
                             show_bounding_box=self._show_bounding_box, show_graph_network=self._show_graph_network)
 
     def build_selection_map(self, buildings):
@@ -61,8 +61,8 @@ class ShapefileNavigator:
             return
 
     def show_graph(self, graph, show_graph_network=False, show_entry_points=False, show_bounding_box=False):
-        path = path_finder.nx_shortest_path(graph, self._collision_obj.build_process.building_directory[self._start_node],
-                                            self._collision_obj.build_process.building_directory[self._destination_node])
+        path = path_finder.nx_shortest_path(graph, self._collision_obj.build_graph.building_directory[self._start_node],
+                                            self._collision_obj.build_graph.building_directory[self._destination_node])
         x = list()
         y = list()
         for i in path:
@@ -77,8 +77,8 @@ class ShapefileNavigator:
             nx.draw_networkx_labels(graph, pos, font_size=5, font_family='sans-serif')
 
         if show_entry_points is True:
-            src_entrance = self._collision_obj.build_process.building_directory[self._start_node]
-            dst_entrance = self._collision_obj.build_process.building_directory[self._destination_node]
+            src_entrance = self._collision_obj.build_graph.building_directory[self._start_node]
+            dst_entrance = self._collision_obj.build_graph.building_directory[self._destination_node]
             x = list()
             y = list()
 

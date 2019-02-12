@@ -1,4 +1,4 @@
-from collision_detector import CollisionDetection
+from collision_detection import CollisionDetection
 from read_shp import ReadShapeFiles
 from path_finder import nx_shortest_path
 import time
@@ -42,15 +42,15 @@ for i in range(2, 101, 1):
     time_list.append([i*i, duration])
 
     # COW
-    source = collision_obj.build_process.building_directory['Taylor Hall']
-    destination = collision_obj.build_process.building_directory['Lowry Student Center']
+    source = collision_obj.build_graph.building_directory['Taylor Hall']
+    destination = collision_obj.build_graph.building_directory['Lowry Student Center']
 
     # DENISON
     # source = collision_obj.build_process.building_directory['Shaw Hall']
     # destination = collision_obj.build_process.building_directory['Higley Hall']
 
     start = time.time()
-    nx_shortest_path(collision_obj.build_process.graph, source, destination)
+    nx_shortest_path(collision_obj.build_graph.graph, source, destination)
     end = time.time()
     duration = end - start
 
@@ -59,7 +59,7 @@ for i in range(2, 101, 1):
     dij_list.append([i * i, duration])
 
     start = time.time()
-    nx_shortest_path(collision_obj.build_process.graph, source, destination, alg_name='bellman_ford_path')
+    nx_shortest_path(collision_obj.build_graph.graph, source, destination, alg_name='bellman_ford_path')
     end = time.time()
     duration = end - start
 
@@ -68,7 +68,7 @@ for i in range(2, 101, 1):
     bell_list.append([i * i, duration])
 
     start = time.time()
-    nx_shortest_path(collision_obj.build_process.graph, source, destination, alg_name='astar_path')
+    nx_shortest_path(collision_obj.build_graph.graph, source, destination, alg_name='astar_path')
     end = time.time()
     duration = end - start
 

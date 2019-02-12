@@ -3,12 +3,10 @@ import math
 from statistics import median
 
 
-class BoundingBoxTracker:
+class SpatialGrid:
     def __init__(self, abs_max, abs_min, heights, widths, num_rows=None, num_cols=None):
-        if abs_min > abs_max:
-            temp = abs_min
-            abs_min = abs_max
-            abs_max = temp
+        abs_min = min(abs_max, abs_min)
+        abs_max = max(abs_max, abs_min)
 
         x_max_temp = abs_max[0] + .00000001
         y_max_temp = abs_max[1] + .00000001
