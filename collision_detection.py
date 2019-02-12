@@ -1,15 +1,14 @@
-from read_shp import ProcessShapeFiles
-from bounding_boxes import BoundingBoxTracker
+from read_shp import ShapefileGraph
+from spatial_grid import SpatialGrid
 from shapely.geometry import Point
 from scipy import spatial
 
 
 class CollisionDetection:
     def __init__(self, read_obj, rows=None, cols=None):
-        self.bbox_obj = None
-        self.cells = None
+        self.grid_obj = None
         self.bboxes = None
-        self.build_process = ProcessShapeFiles()
+        self.build_graph = None
 
         if (isinstance(rows, int) and rows > 1) and (isinstance(cols, int) and cols > 1):
             self.__num_rows = rows
@@ -18,39 +17,38 @@ class CollisionDetection:
             self.__num_rows = None
             self.__num_cols = None
 
-        self.__create_field(read_obj, rows=self.__num_rows, cols=self.__num_cols)
+        self.__create_field(read_obj)
         self.__scan()
 
-    def __create_field(self, read_obj, rows=None, cols=None):
-        self.build_process.process(read_obj)
+    def __create_field(self, read_obj):
+        self.build_graph = ShapefileGraph(read_obj)
 
-        self.bbox_obj = BoundingBoxTracker(self.build_process.bb_max, self.build_process.bb_min,
-                                           self.build_process.polygon_heights, self.build_process.polygon_widths,
-                                           num_rows=rows, num_cols=cols)
-        self.cells = self.bbox_obj.grid
-        self.bboxes = self.bbox_obj.bounding_boxes
-        self.__num_rows = self.bbox_obj.num_rows
-        self.__num_cols = self.bbox_obj.num_cols
+        self.grid_obj = SpatialGrid(self.build_graph.bb_max, self.build_graph.bb_min,
+                                    self.build_graph.polygon_heights, self.build_graph.polygon_widths,
+                                    num_rows=self.__num_rows, num_cols=self.__num_cols)
+        self.bboxes = self.grid_obj.bounding_boxes
+        self.__num_rows = self.grid_obj.num_rows
+        self.__num_cols = self.grid_obj.num_cols
 
     def __scan(self):
         self.__scan_nodes_to_cell()
         self.__scan_building_to_cell()
 
     def __scan_nodes_to_cell(self):
-        bbox_max = self.bbox_obj.absolute_max
-        bbox_min = self.bbox_obj.absolute_min
+        bbox_max = self.grid_obj.absolute_max
+        bbox_min = self.grid_obj.absolute_min
 
-        for node in self.build_process.graph.nodes:
+        for node in self.build_graph.graph.nodes:
             if isinstance(node, tuple):
                 x = node[0]
                 y = node[1]
 
                 col_cell = int((((x - bbox_min[0]) / (bbox_max[0] - bbox_min[0])) * self.__num_cols))
                 row_cell = int((((y - bbox_min[1]) / (bbox_max[1] - bbox_min[1])) * self.__num_rows))
-                self.cells[row_cell][col_cell].append((float(node[0]), float(node[1])))
+                self.grid_obj.grid[row_cell][col_cell].append((float(node[0]), float(node[1])))
 
     def __scan_building_to_cell(self):
-        for building, directory in self.build_process.building_directory.items():
+        for building, directory in self.build_graph.building_directory.items():
             # print(building)
             # print(directory['building_bbox_dir'])
             # print(directory['building_shp_reference'])
@@ -60,8 +58,8 @@ class CollisionDetection:
             self.__scan_building_entry_points(directory)
 
     def __assign_cells_to_building(self, polygon, directory):
-        bbox_max = self.bbox_obj.absolute_max
-        bbox_min = self.bbox_obj.absolute_min
+        bbox_max = self.grid_obj.absolute_max
+        bbox_min = self.grid_obj.absolute_min
 
         min_xy = (polygon.bounds[0], polygon.bounds[1])
         max_xy = (polygon.bounds[2], polygon.bounds[3])
@@ -84,8 +82,8 @@ class CollisionDetection:
             x = cell[0]
             y = cell[1]
 
-            if len(self.cells[x][y]) != 0:
-                for node in self.cells[x][y]:
+            if len(self.grid_obj.grid[x][y]) != 0:
+                for node in self.grid_obj.grid[x][y]:
                     node_pt = Point((float(node[0]), float(node[1])))
 
                     if node_pt.intersects(polygon) and (float(node[0]), float(node[1])) not in \
@@ -95,10 +93,10 @@ class CollisionDetection:
 
         if count == 0:
             # directory['building_entry_nodes'].append(closest_node)
-            node = self.build_process.midpoint(polygon.bounds[0], polygon.bounds[1], polygon.bounds[2],
-                                               polygon.bounds[3])
-            nodes = self.build_process.graph.nodes
+            node = self.build_graph.midpoint(polygon.bounds[0], polygon.bounds[1], polygon.bounds[2],
+                                             polygon.bounds[3])
+            nodes = self.build_graph.graph.nodes
             tree = spatial.KDTree(nodes)
             tree.query([node])
             output = tree.query([node])
-            directory['building_entry_nodes'].append(list(self.build_process.graph.nodes).__getitem__(output[1][0]))
+            directory['building_entry_nodes'].append(list(self.build_graph.graph.nodes).__getitem__(output[1][0]))

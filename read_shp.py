@@ -21,6 +21,10 @@ MULTIPOINTM = 28
 MULTIPATCH = 31
 
 
+class ShapeFileNavigatorException(Exception):
+    pass
+
+
 class ReadShapeFiles:
     def __init__(self, pathways="shapefiles/roads.shp", destinations="shapefiles/buildings.shp"):
         self.__pathways_sf = None
@@ -53,15 +57,15 @@ class ReadShapeFiles:
                 self.__pathways_sf = pathways_sf
                 self.__destinations_sf = destinations_sf
             else:
-                raise Exception("Scope of included shapefiles are not aligned")
+                raise ShapeFileNavigatorException("Scope of included shapefiles are not aligned")
         elif pathways_sf.shapeType == POLYGON and destinations_sf.shapeType == POLYLINE:
             if v_bbox.intersects(p_bbox):
                 self.__pathways_sf = destinations_sf
                 self.__destinations_sf = pathways_sf
             else:
-                raise Exception("Scope of included shapefiles are not aligned")
+                raise ShapeFileNavigatorException("Scope of included shapefiles are not aligned")
         else:
-            raise Exception("The included shapefiles are not supported")
+            raise ShapeFileNavigatorException("The included shapefiles are not supported")
 
     @staticmethod
     def __read_files(file_path):
@@ -75,8 +79,8 @@ class ReadShapeFiles:
         return sf
 
 
-class ProcessShapeFiles:
-    def __init__(self):
+class ShapefileGraph:
+    def __init__(self, readshp_obj):
         self.__bb_max = None
         self.__bb_min = None
 
@@ -85,6 +89,7 @@ class ProcessShapeFiles:
 
         self.__graph = nx.Graph()
         self.__building_directory = dict()
+        self.__process(readshp_obj)
 
     @property
     def bb_max(self):
@@ -110,22 +115,21 @@ class ProcessShapeFiles:
     def building_directory(self):
         return self.__building_directory
 
-    def process(self, read_shp_obj):
-        if isinstance(read_shp_obj, ReadShapeFiles):
-            self.__process_polygons(read_shp_obj.destinations_sf)
-            self.__process_poly_lines(read_shp_obj.pathways_sf)
+    def __process(self, read_shp_obj):
+        if not isinstance(read_shp_obj, ReadShapeFiles):
+            raise ShapeFileNavigatorException("Given object is not supported. Please use a ReadShapefiles object")
 
-            min_x = min(read_shp_obj.pathways_sf.bbox[0], read_shp_obj.destinations_sf.bbox[0])
-            min_y = min(read_shp_obj.pathways_sf.bbox[1], read_shp_obj.destinations_sf.bbox[1])
+        self.__process_polygons(read_shp_obj.destinations_sf)
+        self.__process_poly_lines(read_shp_obj.pathways_sf)
 
-            max_x = max(read_shp_obj.pathways_sf.bbox[2], read_shp_obj.destinations_sf.bbox[2])
-            max_y = max(read_shp_obj.pathways_sf.bbox[3], read_shp_obj.destinations_sf.bbox[3])
+        min_x = min(read_shp_obj.pathways_sf.bbox[0], read_shp_obj.destinations_sf.bbox[0])
+        min_y = min(read_shp_obj.pathways_sf.bbox[1], read_shp_obj.destinations_sf.bbox[1])
 
-            self.__bb_max = (max_x, max_y)
-            self.__bb_min = (min_x, min_y)
+        max_x = max(read_shp_obj.pathways_sf.bbox[2], read_shp_obj.destinations_sf.bbox[2])
+        max_y = max(read_shp_obj.pathways_sf.bbox[3], read_shp_obj.destinations_sf.bbox[3])
 
-        else:
-            raise Exception("Given object is not supported. Please use a ReadShapefiles object")
+        self.__bb_max = (max_x, max_y)
+        self.__bb_min = (min_x, min_y)
 
     def __process_polygons(self, sf):
         records = list(sf.iterRecords())
