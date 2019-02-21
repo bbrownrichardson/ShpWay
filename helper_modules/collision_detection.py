@@ -1,5 +1,5 @@
-from read_shp import ShapefileGraph
-from spatial_grid import SpatialGrid
+from helper_modules.read_shp import ShapefileGraph
+from helper_modules.spatial_grid import SpatialGrid
 from shapely.geometry import Point
 from scipy import spatial
 
@@ -48,7 +48,7 @@ class CollisionDetection:
                 self.grid_obj.grid[row_cell][col_cell].append((float(node[0]), float(node[1])))
 
     def __scan_building_to_cell(self):
-        for building, directory in self.build_graph.building_directory.items():
+        for building, directory in self.build_graph.reference_directory.items():
             # print(building)
             # print(directory['building_bbox_dir'])
             # print(directory['building_shp_reference'])
