@@ -88,7 +88,7 @@ class ShapefileGraph:
         self.__polygon_heights = list()
 
         self.__graph = nx.Graph()
-        self.__building_directory = dict()
+        self.__reference_directory = dict()
         self.__process(readshp_obj)
 
     @property
@@ -112,8 +112,8 @@ class ShapefileGraph:
         return self.__graph
 
     @property
-    def building_directory(self):
-        return self.__building_directory
+    def reference_directory(self):
+        return self.__reference_directory
 
     def __process(self, read_shp_obj):
         if not isinstance(read_shp_obj, ReadShapeFiles):
@@ -137,7 +137,7 @@ class ShapefileGraph:
             self.__calculate_polygon_size(shape.bbox)
             name = records[i][1]
 
-            self.__building_directory[name] = {
+            self.__reference_directory[name] = {
                 'building_bbox_dir': list(),
                 'building_shp_reference':  Polygon(shape.points),
                 'building_entry_nodes': list()

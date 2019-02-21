@@ -1,109 +1,73 @@
-from read_shp import ReadShapeFiles
-import path_finder
-from collision_detection import CollisionDetection
-import networkx as nx
+from helper_modules import collision_detection, read_shp, path_finder
 import matplotlib.pyplot as plt
 import mplleaflet
+import time
+import random
 
 
 class ShapefileNavigator:
-    def __init__(self, show_entry_points=False, show_bounding_box=False, show_graph_network=False):
-        self._show_entry_points = show_entry_points
-        self._show_bounding_box = show_bounding_box
-        self._show_graph_network = show_graph_network
-        self._selection_map = dict()
-        self._start_node = None
-        self._destination_node = None
-        self._collision_obj = None
+    def __init__(self, pathway_shapefile, visitation_shapefile, rows=None, cols=None):
+        self.__r_obj = read_shp.ReadShapeFiles(pathways=pathway_shapefile, destinations=visitation_shapefile)
+        self.__collision_obj = collision_detection.CollisionDetection(self.__r_obj, rows=rows, cols=cols)
 
-        self.building_dir = input("Enter the directory path of the building shapefile:\n")
-        self.path_dir = input("\nEnter the directory path of the pathway shapefile:\n")
+    def interactive_mode(self):
+        pass
 
-        self.setup_spatial_partitioning()
-        self.start()
+    def get_graph(self):
+        return self.__collision_obj.build_graph.graph
 
-    def setup_spatial_partitioning(self):
-        if self.path_dir.strip() is '' or self.building_dir.strip() is '':
-            self._collision_obj = CollisionDetection(ReadShapeFiles())
+    def get_reference_directory(self):
+        return self.__collision_obj.build_graph.reference_directory
+
+    @staticmethod
+    def get_algorithms():
+        return path_finder.ShortestPathAlgorithm
+
+    def find_path(self, src, dst, algorithm=path_finder.ShortestPathAlgorithm.dijkstra):
+        directory = self.get_reference_directory()
+        if directory.get(src) is None or directory.get(dst) is None:
+            raise read_shp.ShapeFileNavigatorException("src or dst is not present in reference directory")
+        path = path_finder.nx_shortest_path(self.get_graph(), directory[src], directory[dst], alg_name=algorithm)
+        return path
+
+    def show_path(self, src, dst, show_graph=False, show_entry_points=True):
+        path = self.find_path(src, dst)
+        if path is None:
+            raise read_shp.ShapeFileNavigatorException("path does not exist")
+
+        if show_graph:
+            color = 'blue'
+            line_width = 5
         else:
-            self._collision_obj = CollisionDetection(ReadShapeFiles(pathways=self.path_dir,
-                                                                    destinations=self.building_dir))
+            color = (random.uniform(0, .5), random.uniform(0, .5), random.uniform(0, .5))
+            line_width = 2
 
-    def start(self):
-        while True:
-            self.build_selection_map(self._collision_obj.build_graph.building_directory)
-            self.select_buildings()
-            self.show_graph(self._collision_obj.build_graph.graph, show_entry_points=self._show_entry_points,
-                            show_bounding_box=self._show_bounding_box, show_graph_network=self._show_graph_network)
-
-    def build_selection_map(self, buildings):
-        for i, building in enumerate(buildings):
-            self._selection_map[i] = building
-
-    def select_buildings(self):
-        for index, building in sorted(self._selection_map.items()):
-            print(str(index) + ": " + str(building))
-
-        try:
-            print("\n\nSelect a number to represent the starting building:")
-            selection = int(input())
-            self._start_node = self._selection_map[selection]
-            print("You selected " + str(self._start_node))
-            print("\n\nSelect a number to represent the destination building:")
-            selection = int(input())
-            self._destination_node = self._selection_map[selection]
-            print("You selected " + str(self._destination_node) + "\n\n")
-        except KeyError:
-            print("Please use select a valid key\n\n")
-            self.select_buildings()
-        except ValueError:
-            print("EXITING...")
-            return
-
-    def show_graph(self, graph, show_graph_network=False, show_entry_points=False, show_bounding_box=False):
-        path = path_finder.nx_shortest_path(graph, self._collision_obj.build_graph.building_directory[self._start_node],
-                                            self._collision_obj.build_graph.building_directory[self._destination_node])
         x = list()
         y = list()
         for i in path:
             x.append(i[0])
             y.append(i[1])
 
-        plt.plot(x, y, color='blue', linestyle='solid', marker='o', markerfacecolor='blue', markersize=10)
+        plt.plot(x, y, color=color, linestyle='solid', marker='o', linewidth=line_width)
 
-        if show_graph_network is True:
-            pos = nx.get_node_attributes(graph, 'pos')
-            nx.draw(graph, pos, node_size=10)
-            nx.draw_networkx_labels(graph, pos, font_size=5, font_family='sans-serif')
+        if show_graph is True:
+            graph = self.get_graph()
+            pos = path_finder.nx.get_node_attributes(graph, 'pos')
+            path_finder.nx.draw(graph, pos, node_size=10)
+            path_finder.nx.draw_networkx_labels(graph, pos, font_size=5, font_family='sans-serif')
 
         if show_entry_points is True:
-            src_entrance = self._collision_obj.build_graph.building_directory[self._start_node]
-            dst_entrance = self._collision_obj.build_graph.building_directory[self._destination_node]
-            x = list()
-            y = list()
-
-            for node in src_entrance['building_entry_nodes']:
-                x.append(node[0])
-                y.append(node[1])
-
-            for node in dst_entrance['building_entry_nodes']:
-                x.append(node[0])
-                y.append(node[1])
-
-            plt.scatter(x=x, y=y)
-
-        if show_bounding_box is True:
-            x = list()
-            y = list()
-            for bbox in self._collision_obj.bboxes:
-                x.append(bbox[0][0])
-                y.append(bbox[0][1])
-                x.append(bbox[1][0])
-                y.append(bbox[1][1])
-
-            plt.scatter(x=x, y=y)
+            x_coordinates = [path[0][0], path[-1][0]]
+            y_coordinates = [path[0][1], path[-1][1]]
+            plt.scatter(x=x_coordinates, y=y_coordinates, color=color, marker='D')
 
         mplleaflet.show()
 
+    def time_analysis(self, src, dst):
+        algorithms = self.get_algorithms().__members__
 
-ShapefileNavigator(show_entry_points=True)
+        for alg in algorithms.items():
+            start = time.time()
+            self.find_path(src, dst, algorithm=alg[1])
+            end = time.time()
+            print("{} time elapsed: {}".format(alg[0], end - start))
