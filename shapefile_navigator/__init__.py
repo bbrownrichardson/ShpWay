@@ -1,4 +1,4 @@
-from shapefile_navigator.helper_modules import collision_detection, read_shp, path_finder
+from shapefile_navigator import collision_detection, path_finder, read_shp
 import matplotlib.pyplot as plt
 import mplleaflet
 import time
