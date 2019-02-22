@@ -1,5 +1,5 @@
-from helper_modules.read_shp import ShapefileGraph
-from helper_modules.spatial_grid import SpatialGrid
+from shapefile_navigator.helper_modules.read_shp import ShapefileGraph
+from shapefile_navigator.helper_modules.spatial_grid import SpatialGrid
 from shapely.geometry import Point
 from scipy import spatial
 
