@@ -5,6 +5,7 @@ def main():
     pathways = "shapefiles/roads.shp"
     visitation = "shapefiles/buildings.shp"
     sn = ShapefileNavigator(pathways, visitation)
+
     sn.show_path('Taylor Hall', 'Lowry Student Center')
 
 
