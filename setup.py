@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='ShapefileNavigator',
-    version='0.1dev',
+    version='0.1',
     packages=['shapefile_navigator',],
     license='MIT',
     long_description=open('README.md').read(),
