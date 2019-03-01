@@ -1,5 +1,5 @@
-from shapefile_navigator.read_shp import ShapefileGraph
-from shapefile_navigator.spatial_grid import SpatialGrid
+from shp_way.read_shp import ShapefileGraph
+from shp_way.spatial_grid import SpatialGrid
 from shapely.geometry import Point
 from scipy import spatial
 
@@ -106,16 +106,22 @@ class CollisionDetection:
 
             # TODO: Think about how to proceed in the opposite direction if max OR min cells are approached
             # TODO: rest of the cellular search should not suffer because max OR min has been hit
-            while len(found_nodes) == 0 and mx_x <= len(self.grid_obj.grid) and mn_y >= 0 and mx_x >= 0:
+            while len(found_nodes) == 0 and mx_x <= len(self.grid_obj.grid) and mx_y < len(self.grid_obj.grid) \
+                    and mn_y >= 0 and mx_x >= 0:
+
                 for r in range(mn_y, mx_y, 1):
                     for c in range(mn_x, mx_x, 1):
                         if len(self.grid_obj.grid[c][r]) != 0:
                             found_nodes.extend(self.grid_obj.grid[c][r])
 
-                mx_x += 1
-                mx_y += 1
-                mn_x -= 1
-                mn_y -= 1
+                if mx_x < len(self.grid_obj.grid):
+                    mx_x += 1
+                if mx_y < len(self.grid_obj.grid):
+                    mx_y += 1
+                if mn_x > 0:
+                    mn_x -= 1
+                if mn_y > 0:
+                    mn_y -= 1
 
             if len(found_nodes) == 0:
                 found_nodes = self.build_graph.graph.nodes

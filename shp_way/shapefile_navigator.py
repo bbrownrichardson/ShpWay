@@ -1,4 +1,4 @@
-from shapefile_navigator import collision_detection, path_finder, read_shp
+from shp_way import collision_detection, path_finder, read_shp
 import matplotlib.pyplot as plt
 import mplleaflet
 import time
@@ -10,14 +10,16 @@ class ShapefileNavigator:
         self.__r_obj = read_shp.ReadShapeFiles(pathways=pathway_shapefile, destinations=visitation_shapefile)
         self.__collision_obj = collision_detection.CollisionDetection(self.__r_obj, rows=rows, cols=cols)
 
-    def interactive_mode(self):
-        pass
-
     def get_graph(self):
         return self.__collision_obj.build_graph.graph
 
     def get_reference_directory(self):
         return self.__collision_obj.build_graph.reference_directory
+
+    def show_directory(self):
+        directory = self.get_reference_directory()
+        for i in directory.keys():
+            print(i)
 
     @staticmethod
     def get_algorithms():
