@@ -1,6 +1,6 @@
-from shapefile_navigator.read_shp import ReadShapeFiles
-from shapefile_navigator import path_finder
-from shapefile_navigator.collision_detection import CollisionDetection
+from shp_way.read_shp import ReadShapeFiles
+from shp_way import path_finder
+from shp_way.collision_detection import CollisionDetection
 import networkx as nx
 import matplotlib.pyplot as plt
 import mplleaflet

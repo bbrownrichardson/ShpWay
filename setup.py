@@ -3,7 +3,7 @@ from distutils.core import setup
 setup(
     name='ShapefileNavigator',
     version='0.1',
-    packages=['shapefile_navigator',],
+    packages=['shp_way', ],
     license='MIT',
     long_description=open('README.md').read(),
     url='https://github.com/bbrownrichardson/Shapefile-Network-Navigator',

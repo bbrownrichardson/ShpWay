@@ -9,14 +9,15 @@ class ShortestPathAlgorithm(enum.Enum):
 
 
 def nx_shortest_path(graph, src, dst, alg_name=ShortestPathAlgorithm.dijkstra):
-    if alg_name.value == 1:
-        return __nx_dijkstra(graph, src, dst)
-    elif alg_name.value == 2:
-        return __nx_astar(graph, src, dst)
-    elif alg_name.value == 3:
-        return __nx_bellman(graph, src, dst)
-    else:
-        raise Exception
+    try:
+        if alg_name.value == 1:
+            return __nx_dijkstra(graph, src, dst)
+        elif alg_name.value == 2:
+            return __nx_astar(graph, src, dst)
+        elif alg_name.value == 3:
+            return __nx_bellman(graph, src, dst)
+    except nx.NetworkXNoPath:
+        return None
 
 
 def __nx_dijkstra(graph, src, dst):
