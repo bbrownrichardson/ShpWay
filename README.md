@@ -1,1 +1,1 @@
-# Shapefile-Network-Navigator
+# ShpWay: A Shapefile Navigator
