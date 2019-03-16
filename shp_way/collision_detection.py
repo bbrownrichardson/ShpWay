@@ -20,7 +20,14 @@ class CollisionDetection:
         self.__create_field(read_obj, create_bboxes)
         self.__scan()
 
+    def num_rows(self):
+        return self.__num_rows
+
+    def num_cols(self):
+        return self.__num_cols
+
     def __create_field(self, read_obj, create_bboxes):
+        print("CREATING FIELD")
         self.build_graph = ShapefileGraph(read_obj)
 
         self.grid_obj = SpatialGrid(self.build_graph.bb_max, self.build_graph.bb_min,
@@ -31,10 +38,12 @@ class CollisionDetection:
         self.__num_cols = self.grid_obj.num_cols
 
     def __scan(self):
+        print("SCANNING")
         self.__scan_nodes_to_cell()
         self.__scan_building_to_cell()
 
     def __scan_nodes_to_cell(self):
+        print("SCANNING NODES")
         bbox_max = self.grid_obj.absolute_max
         bbox_min = self.grid_obj.absolute_min
 
@@ -48,13 +57,9 @@ class CollisionDetection:
                 self.grid_obj.grid[row_cell][col_cell].append((float(node[0]), float(node[1])))
 
     def __scan_building_to_cell(self):
+        print("SCANNING OBJECTS")
         for building, directory in self.build_graph.reference_directory.items():
-            # print(building)
-            # print(directory['building_bbox_dir'])
-            # print(directory['building_shp_reference'])
-            # print(directory['building_entry_nodes'])
-
-            self.__assign_cells_to_building(directory['building_shp_reference'], directory)
+            self.__assign_cells_to_building(directory['shp_reference'], directory)
             self.__scan_building_entry_points(directory)
 
     def __assign_cells_to_building(self, polygon, directory):
@@ -72,13 +77,13 @@ class CollisionDetection:
 
         for i in range(min_cell[0], max_cell[0] + 1, 1):
             for j in range(min_cell[1], max_cell[1] + 1, 1):
-                directory['building_bbox_dir'].append((j, i))
+                directory['assigned_cell_partitions'].append((j, i))
 
     def __scan_building_entry_points(self, directory):
-        polygon = directory['building_shp_reference']
+        polygon = directory['shp_reference']
         count = 0
 
-        for cell in directory['building_bbox_dir']:
+        for cell in directory['assigned_cell_partitions']:
             x = cell[0]
             y = cell[1]
 
@@ -87,25 +92,23 @@ class CollisionDetection:
                     node_pt = Point((float(node[0]), float(node[1])))
 
                     if node_pt.intersects(polygon) and (float(node[0]), float(node[1])) not in \
-                            directory['building_entry_nodes']:
+                            directory['entry_nodes']:
                         count += 1
-                        directory['building_entry_nodes'].append((float(node[0]), float(node[1])))
+                        directory['entry_nodes'].append((float(node[0]), float(node[1])))
 
         if count == 0:
             found_nodes = list()
 
-            mx = max(directory['building_bbox_dir'])
+            mx = max(directory['assigned_cell_partitions'])
             mx_x = mx[0]
             mx_y = mx[1]
 
-            mn = min(directory['building_bbox_dir'])
+            mn = min(directory['assigned_cell_partitions'])
             mn_x = mn[0]
             mn_y = mn[1]
 
             node = self.build_graph.midpoint(polygon.bounds[0], polygon.bounds[1], polygon.bounds[2], polygon.bounds[3])
 
-            # TODO: Think about how to proceed in the opposite direction if max OR min cells are approached
-            # TODO: rest of the cellular search should not suffer because max OR min has been hit
             while len(found_nodes) == 0 and mx_x <= len(self.grid_obj.grid) and mx_y < len(self.grid_obj.grid) \
                     and mn_y >= 0 and mx_x >= 0:
 
@@ -129,4 +132,4 @@ class CollisionDetection:
             tree = spatial.KDTree(found_nodes)
             tree.query([node])
             output = tree.query([node])
-            directory['building_entry_nodes'].append(list(found_nodes).__getitem__(output[1][0]))
+            directory['entry_nodes'].append(list(found_nodes).__getitem__(output[1][0]))
