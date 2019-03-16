@@ -75,7 +75,6 @@ class ReadShapeFiles:
         :return: reference to reader of selected file
         """
         sf = shapefile.Reader(file_path)
-        # sf = shapefile.Reader(shp=open(shp_file, "rb"), dbf=open(dbf_file, "rb"))
         return sf
 
 
@@ -133,14 +132,20 @@ class ShapefileGraph:
 
     def __process_polygons(self, sf):
         records = list(sf.iterRecords())
-        for i, shape in enumerate(sf.shapes()):
-            self.__calculate_polygon_size(shape.bbox)
+        counter = 0
+
+        for i, shape in enumerate(sf.iterShapeRecords()):
+            self.__calculate_polygon_size(shape.shape.bbox)
             name = records[i][1]
 
-            self.__reference_directory[name] = {
-                'building_bbox_dir': list(),
-                'building_shp_reference':  Polygon(shape.points),
-                'building_entry_nodes': list()
+            if name.strip() is '':
+                counter += 1
+                name = "Unknown {}".format(counter)
+
+            self.__reference_directory[name.strip()] = {
+                'assigned_cell_partitions': list(),
+                'shp_reference':  Polygon(shape.shape.points),
+                'entry_nodes': list()
             }
 
     def __calculate_polygon_size(self, bbox):
@@ -160,11 +165,11 @@ class ShapefileGraph:
         self.__polygon_heights.append(height)
 
     def __process_poly_lines(self, sf):
-        for shape in sf.shapes():
+        for shape in sf.iterShapeRecords():
             prev_point = None
             counter = 0
 
-            for point in shape.points:
+            for point in shape.shape.points:
                 self.__graph.add_node(point, pos=point)
                 if counter > 0:
                     self.__graph.add_edge(prev_point, point, weight=self.distance_calculation(prev_point, point))

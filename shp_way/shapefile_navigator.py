@@ -1,7 +1,6 @@
 from shp_way import collision_detection, path_finder, read_shp
 import matplotlib.pyplot as plt
 import mplleaflet
-import time
 import random
 
 
@@ -9,6 +8,9 @@ class ShapefileNavigator:
     def __init__(self, pathway_shapefile, visitation_shapefile, rows=None, cols=None):
         self.__r_obj = read_shp.ReadShapeFiles(pathways=pathway_shapefile, destinations=visitation_shapefile)
         self.__collision_obj = collision_detection.CollisionDetection(self.__r_obj, rows=rows, cols=cols)
+
+    def get_rows_cols(self):
+        return self.__collision_obj.num_rows(), self.__collision_obj.num_cols()
 
     def get_graph(self):
         return self.__collision_obj.build_graph.graph
@@ -64,12 +66,3 @@ class ShapefileNavigator:
             plt.scatter(x=x_coordinates, y=y_coordinates, color=color, marker='D')
 
         mplleaflet.show()
-
-    def time_analysis(self, src, dst):
-        algorithms = self.get_algorithms().__members__
-
-        for alg in algorithms.items():
-            start = time.time()
-            self.find_path(src, dst, algorithm=alg[1])
-            end = time.time()
-            print("{} time elapsed: {}".format(alg[0], end - start))

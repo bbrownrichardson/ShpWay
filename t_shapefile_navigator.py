@@ -82,11 +82,11 @@ class ShapefileNavigator:
             x = list()
             y = list()
 
-            for node in src_entrance['building_entry_nodes']:
+            for node in src_entrance['entry_nodes']:
                 x.append(node[0])
                 y.append(node[1])
 
-            for node in dst_entrance['building_entry_nodes']:
+            for node in dst_entrance['entry_nodes']:
                 x.append(node[0])
                 y.append(node[1])
 
