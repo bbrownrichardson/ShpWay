@@ -5,7 +5,7 @@ from statistics import median
 
 # TODO: CLEAN UP!!!!
 class SpatialGrid:
-    def __init__(self, abs_max, abs_min, heights, widths, num_rows=None, num_cols=None, create_bboxes=False):
+    def __init__(self, abs_max, abs_min, heights, widths, num_rows=None, num_cols=None):
         self.__absolute_max = None
         self.__absolute_min = None
 
@@ -33,9 +33,6 @@ class SpatialGrid:
         else:
             self.calculate_num_rows_cols(median(widths), median(heights))
         self.create_spatial_grid(self.__num_rows, self.__num_cols)
-
-        if create_bboxes is True:
-            self.create_bounding_boxes(self.__num_rows, self.__num_cols)
 
     @property
     def grid(self):

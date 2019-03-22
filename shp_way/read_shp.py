@@ -26,6 +26,9 @@ class ShapeFileNavigatorException(Exception):
 
 
 class ReadShapeFiles:
+    """
+    Class represents an object to contain two PyShp objects while ensuring shapefiles are supported
+    """
     def __init__(self, pathways="shapefiles/roads.shp", destinations="shapefiles/buildings.shp"):
         self.__pathways_sf = None
         self.__destinations_sf = None
@@ -33,10 +36,16 @@ class ReadShapeFiles:
 
     @property
     def pathways_sf(self):
+        """
+        :return: shapefile containing pathways
+        """
         return self.__pathways_sf
 
     @property
     def destinations_sf(self):
+        """
+        :return: shapefile containing visitation objects
+        """
         return self.__destinations_sf
 
     def __integrity_check(self, pathways, destinations):
@@ -79,6 +88,19 @@ class ReadShapeFiles:
 
 
 class ShapefileGraph:
+    """
+    Class represents a graph and reference directory generated from shapefiles using a ReadShapefile object
+
+    Public Attributes
+    ------------------
+    - bb_max: maximum bounding boxes vertex value from all visitation objects' polygon's
+    - bb_min: minimum bounding boxes vertex value from all visitation objects' polygon's
+    - polygon_widths: all visitation objects' polygon's bounding box's width
+    - polygon_heights: all visitation objects' polygon's bounding box's height
+    - graph: NetworkX graph object
+    - reference directory: hash table data structure used to reference all visitation objects' polygon, cell partitions,
+    and entry points
+    """
     def __init__(self, readshp_obj):
         self.__bb_max = None
         self.__bb_min = None
@@ -115,6 +137,11 @@ class ShapefileGraph:
         return self.__reference_directory
 
     def __process(self, read_shp_obj):
+        """
+        Initialize the process to create the shapefile graph and reference directory
+        :param read_shp_obj: ReadShapefile object
+        :return: None
+        """
         if not isinstance(read_shp_obj, ReadShapeFiles):
             raise ShapeFileNavigatorException("Given object is not supported. Please use a ReadShapefiles object")
 
@@ -131,6 +158,11 @@ class ShapefileGraph:
         self.__bb_min = (min_x, min_y)
 
     def __process_polygons(self, sf):
+        """
+        Process shapefiles containing polygons
+        :param sf: PyShp object containing the polygon shapefile
+        :return: None
+        """
         records = list(sf.iterRecords())
         counter = 0
 
@@ -149,6 +181,11 @@ class ShapefileGraph:
             }
 
     def __calculate_polygon_size(self, bbox):
+        """
+        Calculate the width and height of a polygon's bounding box
+        :param bbox: bounding box of a polygon
+        :return: None
+        """
         mn_x = bbox[0]
         mn_y = bbox[1]
         mx_x = bbox[2]
@@ -165,6 +202,11 @@ class ShapefileGraph:
         self.__polygon_heights.append(height)
 
     def __process_poly_lines(self, sf):
+        """
+        Process shapefiles containing polylines
+        :param sf: PyShp object containing the polyline shapefile
+        :return: None
+        """
         for shape in sf.iterShapeRecords():
             prev_point = None
             counter = 0
@@ -178,11 +220,25 @@ class ShapefileGraph:
 
     @staticmethod
     def midpoint(x1, y1, x2, y2):
+        """
+        Calculate the midpoint using x and y values
+        :param x1: first x value
+        :param y1: first y value
+        :param x2: second x value
+        :param y2: second y value
+        :return: midpoint
+        """
         coord = ((x1 + x2)/2, (y1 + y2)/2)
         return coord
 
     @staticmethod
     def distance_calculation(coord1, coord2):
+        """
+        Calculate the distance between two coordinates
+        :param coord1: first coordinate
+        :param coord2: second coordinate
+        :return: distance
+        """
         x1 = coord1[0]
         y1 = coord1[1]
         x2 = coord2[0]
