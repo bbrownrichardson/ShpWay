@@ -28,17 +28,17 @@ class SpatialGrid:
         """
         Parameters
         ----------
-        abs_max : float
+        :param abs_max : float
             absolute max coordinate for grid
-        abs_min: float
+        :param abs_min: float
             absolute min coordinate for grid
-        heights: list (int)
+        :param heights: list (int)
             list of height values to approximate median cell size
-        widths: list (int)
+        :param widths: list (int)
             list of width values to approximate median cell size
-        num_rows: int, optional
+        :param num_rows: int, optional
             number of rows to be used for grid instead of auto-generating the value
-        num_cols: int, optional
+        :param num_cols: int, optional
             number of rows to be used for grid instead of auto-generating the value
         """
         self.__absolute_max = None
@@ -87,8 +87,10 @@ class SpatialGrid:
     def __grid_padding(self, abs_max, abs_min):
         """
         Slightly pad grid boundaries to ensure all objects are covered by the spatial grid
-        :param abs_max: the upper left vertex of the grid
-        :param abs_min: the lower right vertex of the grid
+        :param abs_max: tuple of floats
+            the upper left vertex of the grid
+        :param abs_min: tuple of floats
+            the lower right vertex of the grid
         :return: None
         """
         abs_min = min(abs_max, abs_min)
@@ -106,8 +108,10 @@ class SpatialGrid:
     def distance_calculation(coord1, coord2):
         """
         Calculate the distance between two coordinates
-        :param coord1: first coordinate
-        :param coord2: second coordinate
+        :param coord1: tuple of floats
+            first coordinate
+        :param coord2: tuple of floats
+            second coordinate
         :return: distance
         """
         x1 = coord1[0]
@@ -119,7 +123,7 @@ class SpatialGrid:
     def __calculate_abs_len_width(self):
         """
         Calculate the median size of the width and height from the widths and heights parameters
-        :return:
+        :return: None
         """
         self.__absolute_width = self.distance_calculation(self.__absolute_min, (self.__x_max, self.__y_min))
         self.__absolute_height = self.distance_calculation((self.__x_max, self.__y_min), self.__absolute_max)
@@ -127,9 +131,9 @@ class SpatialGrid:
     def __calculate_num_rows_cols(self, median_width, median_height):
         """
         Determine the number of rows and cols by finding the fixed size of each cell in the grid
-        :param median_width:
-        :param median_height:
-        :return:
+        :param median_width: list of floats
+        :param median_height: list of floats
+        :return: None
         """
         self.__calculate_abs_len_width()
 
@@ -139,8 +143,10 @@ class SpatialGrid:
     def __create_spatial_grid(self, num_rows, num_cols):
         """
         Create a grid based on a given value for the number of rows and columns
-        :param num_rows: number of rows
-        :param num_cols: number of columns
+        :param num_rows: int
+            number of rows
+        :param num_cols: int
+            number of columns
         :return: None
         """
         self.__grid = list()

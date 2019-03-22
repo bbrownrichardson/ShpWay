@@ -25,11 +25,11 @@ class CollisionDetection:
         """
         Parameters
         ----------
-        read_obj: ReadShapefiles
+        :param read_obj: ReadShapefiles
             a ReadShapefiles object containing the shapefiles
-        rows: int, optional
+        :param rows: int, optional
             number of rows to be used for grid instead of auto-generating the value
-        cols: int, optional
+        :param cols: int, optional
             number of rows to be used for grid instead of auto-generating the value
         """
         self.grid = None
@@ -74,7 +74,7 @@ class CollisionDetection:
     def __scan(self):
         """
         Initialize collision detection process
-        :return:
+        :return: None
         """
         self.__scan_nodes_to_cells()
         self.__scan_visitation_objects()
@@ -109,7 +109,8 @@ class CollisionDetection:
         """
         Determine which cell partitions a visitation object falls upon using the objects' individual
         reference directory
-        :param directory: hash table data structure containing needed information relating each object
+        :param directory: hash table
+            needed information relating each visitation object's sub-directory
         :return: None
         """
         polygon = directory['shp_reference']
@@ -132,7 +133,8 @@ class CollisionDetection:
     def __assign_entry_points(self, directory):
         """
         Assign entry points for all visitation objects using references of nodes
-        :param directory: hash table data structure containing needed information relating each object
+        :param directory: hash table
+            needed information relating each visitation object's sub-directory
         :return: None
         """
         polygon = directory['shp_reference']

@@ -4,7 +4,7 @@ from shapely.geometry import Polygon, box
 import math
 
 
-# Shapefile Represented Types
+"""Shapefile Represented Types"""
 NULL = 0
 POINT = 1
 POLYLINE = 3
@@ -28,16 +28,21 @@ class ShapeFileNavigatorException(Exception):
 class ReadShapeFiles:
     """
     Class represents an object to contain two PyShp objects while ensuring shapefiles are supported
+
+     Public Attributes
+    ------------------
+    - pathways_sf: PyShp object containing pathways shapefile
+    - destinations_sf: PyShp object containing the destinations shapefile
     """
     def __init__(self, pathways="shapefiles/roads", destinations="shapefiles/buildings"):
         """
         Parameters
         ----------
-        pathways: string, optional if shapefiles are present in 'shapefiles/' code directory
+        :param pathways: string, optional if shapefiles are present in 'shapefiles/' code directory
             directory containing shapefile
             example: 'C:/Username/documents/shapefile_folder/roads'
 
-        destinations: string, optional if shapefiles are present in 'shapefiles/' code directory
+        :param destinations: destinations: string, optional if shapefiles are present in 'shapefiles/' code directory
             directory containing shapefile
             example: 'C:/Username/documents/shapefile_folder/buildings'
         """
@@ -62,8 +67,10 @@ class ReadShapeFiles:
     def __integrity_check(self, pathways, destinations):
         """
         Ensure given shapefiles are supported and are aligned
-        :param pathways: Shapefile containing polyline shapes
-        :param destinations: Shapefile containing polygon shapes (Currently)
+        :param pathways: string
+            Shapefile containing polyline shapes
+        :param destinations: string
+            Shapefile containing polygon shapes (Currently)
         :return: None
         """
         pathways_sf = self.__read_files(pathways)
@@ -91,8 +98,9 @@ class ReadShapeFiles:
     def __read_files(file_path):
         """
         Apply shapefile reader to main file
-        :param file_path: main file selected
-        :return: reference to reader of selected file
+        :param file_path: string
+            main file selected
+        :return: PyShp reader of given file_path
         """
         sf = shapefile.Reader(file_path)
         return sf
@@ -116,7 +124,7 @@ class ShapefileGraph:
         """
         Parameters
         ----------
-        readshp_obj: ReadShapefiles
+        :param readshp_obj: ReadShapefiles object
             a ReadShapefiles object containing the shapefiles
         """
         self.__bb_max = None
@@ -177,7 +185,8 @@ class ShapefileGraph:
     def __process_polygons(self, sf):
         """
         Process shapefiles containing polygons
-        :param sf: PyShp object containing the polygon shapefile
+        :param sf: PyShp object
+            PyShp object containing the polygon shapefile
         :return: None
         """
         records = list(sf.iterRecords())
@@ -200,7 +209,8 @@ class ShapefileGraph:
     def __calculate_polygon_size(self, bbox):
         """
         Calculate the width and height of a polygon's bounding box
-        :param bbox: bounding box of a polygon
+        :param bbox: list of floats
+            bounding box of a polygon
         :return: None
         """
         mn_x = bbox[0]
@@ -221,7 +231,8 @@ class ShapefileGraph:
     def __process_poly_lines(self, sf):
         """
         Process shapefiles containing polylines
-        :param sf: PyShp object containing the polyline shapefile
+        :param sf: PyShp object
+            PyShp object containing the polyline shapefile
         :return: None
         """
         for shape in sf.iterShapeRecords():
@@ -239,10 +250,14 @@ class ShapefileGraph:
     def midpoint(x1, y1, x2, y2):
         """
         Calculate the midpoint using x and y values
-        :param x1: first x value
-        :param y1: first y value
-        :param x2: second x value
-        :param y2: second y value
+        :param x1: float
+            first x value
+        :param y1: float
+            first y value
+        :param x2: float
+            second x value
+        :param y2: float
+            second y value
         :return: midpoint
         """
         coord = ((x1 + x2)/2, (y1 + y2)/2)
@@ -252,8 +267,10 @@ class ShapefileGraph:
     def distance_calculation(coord1, coord2):
         """
         Calculate the distance between two coordinates
-        :param coord1: first coordinate
-        :param coord2: second coordinate
+        :param coord1: tuple of floats
+            first coordinate
+        :param coord2: tuple of floats
+            second coordinate
         :return: distance
         """
         x1 = coord1[0]
