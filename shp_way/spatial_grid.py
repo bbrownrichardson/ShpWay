@@ -4,26 +4,43 @@ from statistics import median
 
 class SpatialGrid:
     """"
-    Class represents a collision detection object. Object determines entry points of all visitation objects using
-    collision detection.
+    Class represents a spatial grid based on inputted attributes
 
     Public Attributes
     ------------------
-    - grid:
-    - absolute_max:
-    - absolute_min:
-    - num_rows:
-    - num_cols:
+    - grid: data structure representing the spatial grid
+    - absolute_max: upper left coordinate of the grid
+    - absolute_min: lower right coordinate of the grid
+    - num_rows: number of rows presented in the grid
+    - num_cols: number of columns presented in the grid
 
     'Private' Attributes
     ------------------
-    - x_max:
-    - y_max:
-    - x_min:
-    - y_min:
+    - absolute_width: the medium value from a list of widths used for auto-generating number of columns in grid
+    - absolute_height: the medium value from a list of heights used for auto-generating number of rows in grid
+    - x_max: the max x coordinate
+    - y_max: the max y coordinate
+    - x_min: the min x coordinate
+    - y_min: the min y coordinate
 
     """
     def __init__(self, abs_max, abs_min, heights, widths, num_rows=None, num_cols=None):
+        """
+        Parameters
+        ----------
+        abs_max : float
+            absolute max coordinate for grid
+        abs_min: float
+            absolute min coordinate for grid
+        heights: list (int)
+            list of height values to approximate median cell size
+        widths: list (int)
+            list of width values to approximate median cell size
+        num_rows: int, optional
+            number of rows to be used for grid instead of auto-generating the value
+        num_cols: int, optional
+            number of rows to be used for grid instead of auto-generating the value
+        """
         self.__absolute_max = None
         self.__absolute_min = None
 
@@ -68,6 +85,12 @@ class SpatialGrid:
         return self.__num_cols
 
     def __grid_padding(self, abs_max, abs_min):
+        """
+        Slightly pad grid boundaries to ensure all objects are covered by the spatial grid
+        :param abs_max: the upper left vertex of the grid
+        :param abs_min: the lower right vertex of the grid
+        :return: None
+        """
         abs_min = min(abs_max, abs_min)
         abs_max = max(abs_max, abs_min)
 
@@ -81,27 +104,45 @@ class SpatialGrid:
 
     @staticmethod
     def distance_calculation(coord1, coord2):
+        """
+        Calculate the distance between two coordinates
+        :param coord1: first coordinate
+        :param coord2: second coordinate
+        :return: distance
+        """
         x1 = coord1[0]
         y1 = coord1[1]
         x2 = coord2[0]
         y2 = coord2[1]
         return math.hypot(x2 - x1, y2 - y1)
 
-    def __mid_point_calculation(self):
-        coord = ((self.__x_max + self.__x_min) / float(2), (self.__y_max + self.__y_min) / float(2))
-        return coord
-
     def __calculate_abs_len_width(self):
+        """
+        Calculate the median size of the width and height from the widths and heights parameters
+        :return:
+        """
         self.__absolute_width = self.distance_calculation(self.__absolute_min, (self.__x_max, self.__y_min))
         self.__absolute_height = self.distance_calculation((self.__x_max, self.__y_min), self.__absolute_max)
 
     def __calculate_num_rows_cols(self, median_width, median_height):
+        """
+        Determine the number of rows and cols by finding the fixed size of each cell in the grid
+        :param median_width:
+        :param median_height:
+        :return:
+        """
         self.__calculate_abs_len_width()
 
         self.__num_rows = int(self.__absolute_height / median_height)
         self.__num_cols = int(self.__absolute_width / median_width)
 
     def __create_spatial_grid(self, num_rows, num_cols):
+        """
+        Create a grid based on a given value for the number of rows and columns
+        :param num_rows: number of rows
+        :param num_cols: number of columns
+        :return: None
+        """
         self.__grid = list()
 
         for row in range(num_rows):
