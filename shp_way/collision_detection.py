@@ -22,6 +22,16 @@ class CollisionDetection:
     - shp_graph: ShapefileGraph object
     """
     def __init__(self, read_obj, rows=None, cols=None):
+        """
+        Parameters
+        ----------
+        read_obj: ReadShapefiles
+            a ReadShapefiles object containing the shapefiles
+        rows: int, optional
+            number of rows to be used for grid instead of auto-generating the value
+        cols: int, optional
+            number of rows to be used for grid instead of auto-generating the value
+        """
         self.grid = None
         self.shp_graph = None
 
