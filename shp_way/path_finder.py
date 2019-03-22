@@ -3,24 +3,42 @@ import enum
 
 
 class ShortestPathAlgorithm(enum.Enum):
+    """
+    Enum class to present the different algorithms available
+    """
     dijkstra = 1
     a_star = 2
     bellman_ford = 3
 
 
 def nx_shortest_path(graph, src, dst, alg_name=ShortestPathAlgorithm.dijkstra):
+    """
+    Initialize process to find the shortest path in graph based on algorithm
+    :param graph: NetworkX graph
+    :param src: source node from graph
+    :param dst: destination node from graph
+    :param alg_name: selected algorithm to determine path
+    :return: A path between src and dst
+    """
     try:
         if alg_name.value == 1:
             return __nx_dijkstra(graph, src, dst)
         elif alg_name.value == 2:
             return __nx_astar(graph, src, dst)
         elif alg_name.value == 3:
-            return __nx_bellman(graph, src, dst)
+            return __nx_bellman_ford(graph, src, dst)
     except nx.NetworkXNoPath:
         return None
 
 
 def __nx_dijkstra(graph, src, dst):
+    """
+    Find shortest path between src and dst using Dijkstra's algorithm
+    :param graph: NetworkX graph
+    :param src: source node from graph
+    :param dst: destination node from graph
+    :return: Path between src and dst
+    """
     path = None
     path_length = None
 
@@ -40,6 +58,13 @@ def __nx_dijkstra(graph, src, dst):
 
 
 def __nx_astar(graph, src, dst):
+    """
+    Find shortest path between src and dst using A star algorithm
+    :param graph: NetworkX graph
+    :param src: source node from graph
+    :param dst: destination node from graph
+    :return: Path between src and dst
+    """
     path = None
     path_length = None
 
@@ -58,7 +83,14 @@ def __nx_astar(graph, src, dst):
     return path
 
 
-def __nx_bellman(graph, src, dst):
+def __nx_bellman_ford(graph, src, dst):
+    """
+    Find shortest path between src and dst using Bellman-Ford's algorithm
+    :param graph: NetworkX graph
+    :param src: source node from graph
+    :param dst: destination node from graph
+    :return: Path between src and dst
+    """
     path = None
     path_length = None
 
