@@ -13,10 +13,10 @@ class ShapefileNavigator:
         return self.__collision_obj.num_rows(), self.__collision_obj.num_cols()
 
     def get_graph(self):
-        return self.__collision_obj.build_graph.graph
+        return self.__collision_obj.shp_graph.graph
 
     def get_reference_directory(self):
-        return self.__collision_obj.build_graph.reference_directory
+        return self.__collision_obj.shp_graph.reference_directory
 
     def show_directory(self):
         directory = self.get_reference_directory()
