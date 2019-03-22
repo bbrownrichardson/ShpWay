@@ -29,7 +29,18 @@ class ReadShapeFiles:
     """
     Class represents an object to contain two PyShp objects while ensuring shapefiles are supported
     """
-    def __init__(self, pathways="shapefiles/roads.shp", destinations="shapefiles/buildings.shp"):
+    def __init__(self, pathways="shapefiles/roads", destinations="shapefiles/buildings"):
+        """
+        Parameters
+        ----------
+        pathways: string, optional if shapefiles are present in 'shapefiles/' code directory
+            directory containing shapefile
+            example: 'C:/Username/documents/shapefile_folder/roads'
+
+        destinations: string, optional if shapefiles are present in 'shapefiles/' code directory
+            directory containing shapefile
+            example: 'C:/Username/documents/shapefile_folder/buildings'
+        """
         self.__pathways_sf = None
         self.__destinations_sf = None
         self.__integrity_check(pathways, destinations)
@@ -102,6 +113,12 @@ class ShapefileGraph:
     and entry points
     """
     def __init__(self, readshp_obj):
+        """
+        Parameters
+        ----------
+        readshp_obj: ReadShapefiles
+            a ReadShapefiles object containing the shapefiles
+        """
         self.__bb_max = None
         self.__bb_min = None
 

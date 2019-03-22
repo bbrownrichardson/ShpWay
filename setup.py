@@ -9,5 +9,5 @@ setup(
     url='https://github.com/bbrownrichardson/Shapefile-Network-Navigator',
     author='Brianna Brown Richardson',
     author_email='bbrownrichardson@gmail.com',
-    requires=['pyshp', 'shapely', 'matplotlib', 'networkx', 'scipy']
+    requires=['pyshp', 'shapely', 'matplotlib', 'networkx', 'scipy', 'mplleaflet']
 )
