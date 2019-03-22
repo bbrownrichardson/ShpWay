@@ -60,8 +60,11 @@ class ShapefileNavigator:
             return
 
     def show_graph(self, graph, show_graph_network=False, show_entry_points=False):
-        path = path_finder.nx_shortest_path(graph, self._collision_obj.shp_graph.reference_directory[self._start_node],
-                                            self._collision_obj.shp_graph.reference_directory[self._destination_node])
+        path = path_finder.nx_shortest_path(graph,
+                                            self._collision_obj.shp_graph.reference_directory[self._start_node]
+                                            ['entry_nodes'],
+                                            self._collision_obj.shp_graph.reference_directory[self._destination_node]
+                                            ['entry_nodes'])
         x = list()
         y = list()
         for i in path:
