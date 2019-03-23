@@ -17,7 +17,7 @@ ShpWay is a simple Python library that converts shapefiles into a navigation sys
 ShpWay can be installed with pip:
 
 ```
-$ pip install shp_way
+$ pip install -i https://pypi.org/simple/ shp-way-bbrownrichardson==0.0.1
 ```
 
 or directly from the source code:
