@@ -7,7 +7,7 @@ ShpWay is a simple Python library that converts shapefiles into a navigation sys
 
 ### Requirements
 
-* Python 2.6+ or Python 3.3+
+* Python 2.7+
 * Two shapefiles
     - a shapefile containing _**polyline**_ shapes to outline the pathways
     - a shapefile containing all potential visitation objects _**polygon shapes is currently only supported**_
