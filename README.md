@@ -40,7 +40,7 @@ pip install Shapely
 or for Windows the wheels package can be downloaded [here](https://www.lfd.uci.edu/~gohlke/pythonlibs/#shapely)
 - select the appropriate package for your system
 
-After package is downloaded, cd to the directory containing the wheels package and install using the following command:
+After the package is downloaded, cd to the directory containing the wheels package and install using the following command:
 
 ```
 pip install Shapely-1.6.4.post1-cp37-cp37m-win32.whl
