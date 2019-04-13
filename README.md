@@ -28,6 +28,27 @@ $ cd ShpWay
 $ python setup.py install
 ```
 
+#### NOTE:
+Some users might experience issues with installing ShpWay due to its Shapely dependency.
+To solve this issue simply install Shapely prior to installing ShpWay.
+
+Shapely can be installed either by the following command:
+```
+pip install Shapely
+```
+
+or for Windows the wheels package can be downloaded [here](https://www.lfd.uci.edu/~gohlke/pythonlibs/#shapely)
+- select the appropriate package for your system
+
+After package is downloaded, cd to the directory containing the wheels package and install using the following command:
+
+```
+pip install Shapely-1.6.4.post1-cp37-cp37m-win32.whl
+```
+
+**"Shapely-1.6.4.post1-cp37-cp37m-win32.whl" should be replaced with the appropriate package version downloaded**
+
+
 ### Basic Usage
 The usage of the library's interface is simple.
 
