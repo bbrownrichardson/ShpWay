@@ -1,0 +1,527 @@
+osmium2shape version osmium2shape-1.0
+Memory used for node coordinates storage (approximate):
+  for positive IDs: 256 MiB
+  for negative IDs: 16457 MiB
+error building way geometry for way 5670230: must at least contain two nodes
+Ignoring illegal geometry for way 5670230.
+error building way geometry for way 5672766: must at least contain two nodes
+Ignoring illegal geometry for way 5672766.
+error building way geometry for way 5699313: must at least contain two nodes
+Ignoring illegal geometry for way 5699313.
+error building way geometry for way 5702719: must at least contain two nodes
+Ignoring illegal geometry for way 5702719.
+error building way geometry for way 5702741: must at least contain two nodes
+Ignoring illegal geometry for way 5702741.
+error building way geometry for way 5703766: must at least contain two nodes
+Ignoring illegal geometry for way 5703766.
+error building way geometry for way 5705728: must at least contain two nodes
+Ignoring illegal geometry for way 5705728.
+error building way geometry for way 5707445: must at least contain two nodes
+Ignoring illegal geometry for way 5707445.
+error building way geometry for way 5707652: must at least contain two nodes
+Ignoring illegal geometry for way 5707652.
+error building way geometry for way 5709970: must at least contain two nodes
+Ignoring illegal geometry for way 5709970.
+error building way geometry for way 11632794: must at least contain two nodes
+Ignoring illegal geometry for way 11632794.
+error building way geometry for way 22941786: must at least contain two nodes
+Ignoring illegal geometry for way 22941786.
+Ignoring illegal geometry for way 27459755.
+error building way geometry for way 27531461: must at least contain two nodes
+Ignoring illegal geometry for way 27531461.
+error building way geometry for way 32959299: must at least contain two nodes
+Ignoring illegal geometry for way 32959299.
+error building way geometry for way 32959795: must at least contain two nodes
+Ignoring illegal geometry for way 32959795.
+Ignoring illegal geometry for way 39243853.
+Ignoring illegal geometry for way 39648495.
+Ignoring illegal geometry for way 39831420.
+error building way geometry for way 46130134: must at least contain two nodes
+Ignoring illegal geometry for way 46130134.
+error building way geometry for way 46334594: must at least contain two nodes
+Ignoring illegal geometry for way 46334594.
+error building way geometry for way 46340263: must at least contain two nodes
+Ignoring illegal geometry for way 46340263.
+error building way geometry for way 46482606: must at least contain two nodes
+Ignoring illegal geometry for way 46482606.
+error building way geometry for way 46583484: must at least contain two nodes
+Ignoring illegal geometry for way 46583484.
+error building way geometry for way 46627101: must at least contain two nodes
+Ignoring illegal geometry for way 46627101.
+error building way geometry for way 46693866: must at least contain two nodes
+Ignoring illegal geometry for way 46693866.
+Ignoring illegal geometry for way 86216906.
+error building way geometry for way 90086370: must at least contain two nodes
+Ignoring illegal geometry for way 90086370.
+error building way geometry for way 98061147: must at least contain two nodes
+Ignoring illegal geometry for way 98061147.
+error building way geometry for way 98061170: must at least contain two nodes
+Ignoring illegal geometry for way 98061170.
+error building way geometry for way 98061199: must at least contain two nodes
+Ignoring illegal geometry for way 98061199.
+Ignoring illegal geometry for way 109269750.
+error building way geometry for way 139919646: must at least contain two nodes
+Ignoring illegal geometry for way 139919646.
+error building way geometry for way 161387757: must at least contain two nodes
+Ignoring illegal geometry for way 161387757.
+error building way geometry for way 169267539: must at least contain two nodes
+Ignoring illegal geometry for way 169267539.
+Ignoring illegal geometry for way 178575123.
+error building way geometry for way 180750894: must at least contain two nodes
+Ignoring illegal geometry for way 180750894.
+error building way geometry for way 180750897: must at least contain two nodes
+Ignoring illegal geometry for way 180750897.
+error building way geometry for way 180750912: must at least contain two nodes
+Ignoring illegal geometry for way 180750912.
+error building way geometry for way 194933376: must at least contain two nodes
+Ignoring illegal geometry for way 194933376.
+error building way geometry for way 196116987: must at least contain two nodes
+Ignoring illegal geometry for way 196116987.
+error building way geometry for way 198595533: must at least contain two nodes
+Ignoring illegal geometry for way 198595533.
+Ignoring illegal geometry for way 220380961.
+error building way geometry for way 222367609: must at least contain two nodes
+Ignoring illegal geometry for way 222367609.
+Ignoring illegal geometry for way 225173157.
+Ignoring illegal geometry for way 225173313.
+error building way geometry for way 225980782: must at least contain two nodes
+Ignoring illegal geometry for way 225980782.
+error building way geometry for way 225980836: must at least contain two nodes
+Ignoring illegal geometry for way 225980836.
+error building way geometry for way 226829110: must at least contain two nodes
+Ignoring illegal geometry for way 226829110.
+error building way geometry for way 233893025: must at least contain two nodes
+Ignoring illegal geometry for way 233893025.
+Ignoring illegal geometry for way 238320858.
+Ignoring illegal geometry for way 265147954.
+Ignoring illegal geometry for way 265147956.
+Ignoring illegal geometry for way 265147958.
+Ignoring illegal geometry for way 265149287.
+Ignoring illegal geometry for way 265150597.
+Ignoring illegal geometry for way 265150604.
+Ignoring illegal geometry for way 265150611.
+Ignoring illegal geometry for way 265150615.
+Ignoring illegal geometry for way 265151131.
+Ignoring illegal geometry for way 265318739.
+Ignoring illegal geometry for way 265318746.
+Ignoring illegal geometry for way 265325040.
+Ignoring illegal geometry for way 265325046.
+Ignoring illegal geometry for way 265325052.
+Ignoring illegal geometry for way 265325055.
+Ignoring illegal geometry for way 265325061.
+Ignoring illegal geometry for way 265325067.
+error building way geometry for way 265325134: must at least contain two nodes
+Ignoring illegal geometry for way 265325134.
+error building way geometry for way 265325153: must at least contain two nodes
+Ignoring illegal geometry for way 265325153.
+Ignoring illegal geometry for way 265325157.
+Ignoring illegal geometry for way 265325160.
+Ignoring illegal geometry for way 265325162.
+Ignoring illegal geometry for way 265325164.
+Ignoring illegal geometry for way 265325187.
+Ignoring illegal geometry for way 265325193.
+Ignoring illegal geometry for way 265325198.
+error building way geometry for way 265329475: must at least contain two nodes
+Ignoring illegal geometry for way 265329475.
+Ignoring illegal geometry for way 265329505.
+Ignoring illegal geometry for way 265329507.
+Ignoring illegal geometry for way 265329511.
+Ignoring illegal geometry for way 265329513.
+Ignoring illegal geometry for way 265329516.
+Ignoring illegal geometry for way 265329523.
+Ignoring illegal geometry for way 265329527.
+Ignoring illegal geometry for way 265329554.
+Ignoring illegal geometry for way 265329558.
+error building way geometry for way 265345386: must at least contain two nodes
+Ignoring illegal geometry for way 265345386.
+Ignoring illegal geometry for way 265345718.
+error building way geometry for way 265345828: must at least contain two nodes
+Ignoring illegal geometry for way 265345828.
+Ignoring illegal geometry for way 265355987.
+error building way geometry for way 265356036: must at least contain two nodes
+Ignoring illegal geometry for way 265356036.
+Ignoring illegal geometry for way 265357820.
+Ignoring illegal geometry for way 265357822.
+error building way geometry for way 265357824: must at least contain two nodes
+Ignoring illegal geometry for way 265357824.
+Ignoring illegal geometry for way 265357825.
+Ignoring illegal geometry for way 265357832.
+Ignoring illegal geometry for way 265357836.
+error building way geometry for way 265357848: must at least contain two nodes
+Ignoring illegal geometry for way 265357848.
+Ignoring illegal geometry for way 265357860.
+warning building way geometry for way 265800309: contains node -1580722444 twice
+error building way geometry for way 265800309: must at least contain two different points
+Ignoring illegal geometry for way 265800309.
+Ignoring illegal geometry for way 265800314.
+error building way geometry for way 265800315: must at least contain two nodes
+Ignoring illegal geometry for way 265800315.
+Ignoring illegal geometry for way 265800322.
+error building way geometry for way 265800325: must at least contain two nodes
+Ignoring illegal geometry for way 265800325.
+Ignoring illegal geometry for way 266155245.
+Ignoring illegal geometry for way 266155250.
+error building way geometry for way 266155271: must at least contain two nodes
+Ignoring illegal geometry for way 266155271.
+error building way geometry for way 266155272: must at least contain two nodes
+Ignoring illegal geometry for way 266155272.
+Ignoring illegal geometry for way 266155273.
+Ignoring illegal geometry for way 266236189.
+Ignoring illegal geometry for way 266236193.
+Ignoring illegal geometry for way 266236196.
+Ignoring illegal geometry for way 266236212.
+Ignoring illegal geometry for way 266236216.
+Ignoring illegal geometry for way 266236223.
+Ignoring illegal geometry for way 266236238.
+error building way geometry for way 266236262: must at least contain two nodes
+Ignoring illegal geometry for way 266236262.
+Ignoring illegal geometry for way 266236263.
+Ignoring illegal geometry for way 266236264.
+Ignoring illegal geometry for way 266237396.
+Ignoring illegal geometry for way 266237406.
+Ignoring illegal geometry for way 266237414.
+Ignoring illegal geometry for way 266237422.
+Ignoring illegal geometry for way 266237531.
+Ignoring illegal geometry for way 266237554.
+Ignoring illegal geometry for way 266237560.
+error building way geometry for way 266244480: must at least contain two nodes
+Ignoring illegal geometry for way 266244480.
+Ignoring illegal geometry for way 266244481.
+warning building way geometry for way 266863347: contains node -1586871066 twice
+error building way geometry for way 266863347: must at least contain two different points
+Ignoring illegal geometry for way 266863347.
+Ignoring illegal geometry for way 266864166.
+Ignoring illegal geometry for way 266864185.
+Ignoring illegal geometry for way 266864317.
+Ignoring illegal geometry for way 266864318.
+Ignoring illegal geometry for way 266864320.
+Ignoring illegal geometry for way 266864321.
+Ignoring illegal geometry for way 266864323.
+Ignoring illegal geometry for way 266864324.
+Ignoring illegal geometry for way 266864349.
+Ignoring illegal geometry for way 266866287.
+Ignoring illegal geometry for way 266866290.
+error building way geometry for way 266866302: must at least contain two nodes
+Ignoring illegal geometry for way 266866302.
+error building way geometry for way 270271257: must at least contain two nodes
+Ignoring illegal geometry for way 270271257.
+error building way geometry for way 270271259: must at least contain two nodes
+Ignoring illegal geometry for way 270271259.
+Ignoring illegal geometry for way 271202445.
+warning building way geometry for way 271203198: contains node -1533289225 twice
+error building way geometry for way 271203198: must at least contain two different points
+Ignoring illegal geometry for way 271203198.
+Ignoring illegal geometry for way 271203225.
+Ignoring illegal geometry for way 271204986.
+error building way geometry for way 271290721: must at least contain two nodes
+Ignoring illegal geometry for way 271290721.
+Ignoring illegal geometry for way 271290732.
+Ignoring illegal geometry for way 271290734.
+Ignoring illegal geometry for way 271290742.
+Ignoring illegal geometry for way 271290752.
+warning building way geometry for way 271290910: contains node -1532441798 twice
+error building way geometry for way 271290910: must at least contain two different points
+Ignoring illegal geometry for way 271290910.
+warning building way geometry for way 271290965: contains node -1532441762 twice
+error building way geometry for way 271290965: must at least contain two different points
+Ignoring illegal geometry for way 271290965.
+Ignoring illegal geometry for way 271290985.
+Ignoring illegal geometry for way 271290988.
+Ignoring illegal geometry for way 271290992.
+error building way geometry for way 271290995: must at least contain two nodes
+Ignoring illegal geometry for way 271290995.
+error building way geometry for way 271292822: must at least contain two nodes
+Ignoring illegal geometry for way 271292822.
+warning building way geometry for way 271292967: contains node -1532402096 twice
+error building way geometry for way 271292967: must at least contain two different points
+Ignoring illegal geometry for way 271292967.
+Ignoring illegal geometry for way 271461237.
+Ignoring illegal geometry for way 271601628.
+Ignoring illegal geometry for way 271605528.
+Ignoring illegal geometry for way 271605601.
+Ignoring illegal geometry for way 271607958.
+warning building way geometry for way 271607977: contains node -1529387957 twice
+error building way geometry for way 271607977: must at least contain two different points
+Ignoring illegal geometry for way 271607977.
+Ignoring illegal geometry for way 271608051.
+error building way geometry for way 271626098: must at least contain two nodes
+Ignoring illegal geometry for way 271626098.
+error building way geometry for way 275070954: must at least contain two nodes
+Ignoring illegal geometry for way 275070954.
+Ignoring illegal geometry for way 280583950.
+Ignoring illegal geometry for way 280583961.
+Ignoring illegal geometry for way 280587306.
+Ignoring illegal geometry for way 280587328.
+Ignoring illegal geometry for way 280587333.
+Ignoring illegal geometry for way 280587339.
+Ignoring illegal geometry for way 280587376.
+Ignoring illegal geometry for way 280587386.
+Ignoring illegal geometry for way 280587415.
+error building way geometry for way 280587431: must at least contain two nodes
+Ignoring illegal geometry for way 280587431.
+error building way geometry for way 280587456: must at least contain two nodes
+Ignoring illegal geometry for way 280587456.
+error building way geometry for way 280587477: must at least contain two nodes
+Ignoring illegal geometry for way 280587477.
+Ignoring illegal geometry for way 280588255.
+Ignoring illegal geometry for way 280588277.
+error building way geometry for way 280588290: must at least contain two nodes
+Ignoring illegal geometry for way 280588290.
+Ignoring illegal geometry for way 280588322.
+Ignoring illegal geometry for way 280588690.
+Ignoring illegal geometry for way 280588698.
+Ignoring illegal geometry for way 280590798.
+Ignoring illegal geometry for way 280590804.
+Ignoring illegal geometry for way 280590807.
+Ignoring illegal geometry for way 280590812.
+Ignoring illegal geometry for way 280590822.
+Ignoring illegal geometry for way 280590858.
+Ignoring illegal geometry for way 280590861.
+Ignoring illegal geometry for way 280599327.
+Ignoring illegal geometry for way 280599332.
+Ignoring illegal geometry for way 280599336.
+Ignoring illegal geometry for way 280599342.
+warning building way geometry for way 280599347: contains node -1448073723 twice
+error building way geometry for way 280599347: must at least contain two different points
+Ignoring illegal geometry for way 280599347.
+Ignoring illegal geometry for way 280599381.
+error building way geometry for way 280599396: must at least contain two nodes
+Ignoring illegal geometry for way 280599396.
+Ignoring illegal geometry for way 280599422.
+Ignoring illegal geometry for way 280599442.
+error building way geometry for way 280599506: must at least contain two nodes
+Ignoring illegal geometry for way 280599506.
+Ignoring illegal geometry for way 280604469.
+error building way geometry for way 280604533: must at least contain two nodes
+Ignoring illegal geometry for way 280604533.
+Ignoring illegal geometry for way 280604535.
+Ignoring illegal geometry for way 280604541.
+Ignoring illegal geometry for way 280604543.
+Ignoring illegal geometry for way 280604545.
+error building way geometry for way 280605117: must at least contain two nodes
+Ignoring illegal geometry for way 280605117.
+Ignoring illegal geometry for way 280605290.
+Ignoring illegal geometry for way 280612454.
+Ignoring illegal geometry for way 280612458.
+Ignoring illegal geometry for way 280612460.
+Ignoring illegal geometry for way 280612461.
+error building way geometry for way 280612463: must at least contain two nodes
+Ignoring illegal geometry for way 280612463.
+warning building way geometry for way 280612528: contains node -1448026680 twice
+error building way geometry for way 280612528: must at least contain two different points
+Ignoring illegal geometry for way 280612528.
+error building way geometry for way 280612529: must at least contain two nodes
+Ignoring illegal geometry for way 280612529.
+Ignoring illegal geometry for way 280612530.
+Ignoring illegal geometry for way 280612531.
+Ignoring illegal geometry for way 280612533.
+Ignoring illegal geometry for way 280612535.
+Ignoring illegal geometry for way 280612544.
+error building way geometry for way 280612545: must at least contain two nodes
+Ignoring illegal geometry for way 280612545.
+Ignoring illegal geometry for way 280613397.
+Ignoring illegal geometry for way 280613399.
+error building way geometry for way 280613402: must at least contain two nodes
+Ignoring illegal geometry for way 280613402.
+error building way geometry for way 280613819: must at least contain two nodes
+Ignoring illegal geometry for way 280613819.
+Ignoring illegal geometry for way 280613831.
+Ignoring illegal geometry for way 280613835.
+error building way geometry for way 280613836: must at least contain two nodes
+Ignoring illegal geometry for way 280613836.
+Ignoring illegal geometry for way 280613856.
+Ignoring illegal geometry for way 280613860.
+Ignoring illegal geometry for way 280641762.
+Ignoring illegal geometry for way 280641793.
+Ignoring illegal geometry for way 280641799.
+error building way geometry for way 280641800: must at least contain two nodes
+Ignoring illegal geometry for way 280641800.
+Ignoring illegal geometry for way 280641811.
+error building way geometry for way 280641819: must at least contain two nodes
+Ignoring illegal geometry for way 280641819.
+error building way geometry for way 280641864: must at least contain two nodes
+Ignoring illegal geometry for way 280641864.
+error building way geometry for way 280641868: must at least contain two nodes
+Ignoring illegal geometry for way 280641868.
+Ignoring illegal geometry for way 280642393.
+error building way geometry for way 280642458: must at least contain two nodes
+Ignoring illegal geometry for way 280642458.
+Ignoring illegal geometry for way 280642474.
+Ignoring illegal geometry for way 280642505.
+Ignoring illegal geometry for way 281344726.
+Ignoring illegal geometry for way 281344728.
+error building way geometry for way 281344730: must at least contain two nodes
+Ignoring illegal geometry for way 281344730.
+error building way geometry for way 281344864: must at least contain two nodes
+Ignoring illegal geometry for way 281344864.
+warning building way geometry for way 281357785: contains node -1441782963 twice
+error building way geometry for way 281357785: must at least contain two different points
+Ignoring illegal geometry for way 281357785.
+Ignoring illegal geometry for way 281357794.
+error building way geometry for way 281357821: must at least contain two nodes
+Ignoring illegal geometry for way 281357821.
+Ignoring illegal geometry for way 281357838.
+Ignoring illegal geometry for way 281357880.
+Ignoring illegal geometry for way 281357912.
+error building way geometry for way 281357913: must at least contain two nodes
+Ignoring illegal geometry for way 281357913.
+warning building way geometry for way 281359050: contains node -1441776354 twice
+error building way geometry for way 281359050: must at least contain two different points
+Ignoring illegal geometry for way 281359050.
+Ignoring illegal geometry for way 281359058.
+Ignoring illegal geometry for way 281359152.
+error building way geometry for way 281359203: must at least contain two nodes
+Ignoring illegal geometry for way 281359203.
+Ignoring illegal geometry for way 281359250.
+error building way geometry for way 281359312: must at least contain two nodes
+Ignoring illegal geometry for way 281359312.
+Ignoring illegal geometry for way 281359314.
+error building way geometry for way 281359473: must at least contain two nodes
+Ignoring illegal geometry for way 281359473.
+Ignoring illegal geometry for way 281359474.
+warning building way geometry for way 281360988: contains node -1441764091 twice
+error building way geometry for way 281360988: must at least contain two different points
+Ignoring illegal geometry for way 281360988.
+Ignoring illegal geometry for way 281360992.
+Ignoring illegal geometry for way 281364994.
+error building way geometry for way 281364997: must at least contain two nodes
+Ignoring illegal geometry for way 281364997.
+error building way geometry for way 281365027: must at least contain two nodes
+Ignoring illegal geometry for way 281365027.
+Ignoring illegal geometry for way 281365125.
+Ignoring illegal geometry for way 281365178.
+Ignoring illegal geometry for way 281365233.
+Ignoring illegal geometry for way 281365264.
+error building way geometry for way 281365287: must at least contain two nodes
+Ignoring illegal geometry for way 281365287.
+error building way geometry for way 281365508: must at least contain two nodes
+Ignoring illegal geometry for way 281365508.
+Ignoring illegal geometry for way 281365514.
+error building way geometry for way 281365585: must at least contain two nodes
+Ignoring illegal geometry for way 281365585.
+Ignoring illegal geometry for way 281365664.
+warning building way geometry for way 284849434: contains node -1409397869 twice
+error building way geometry for way 284849434: must at least contain two different points
+Ignoring illegal geometry for way 284849434.
+Ignoring illegal geometry for way 284849435.
+error building way geometry for way 284849500: must at least contain two nodes
+Ignoring illegal geometry for way 284849500.
+error building way geometry for way 284849519: must at least contain two nodes
+Ignoring illegal geometry for way 284849519.
+Ignoring illegal geometry for way 284865721.
+error building way geometry for way 284865800: must at least contain two nodes
+Ignoring illegal geometry for way 284865800.
+Ignoring illegal geometry for way 284865810.
+error building way geometry for way 284865827: must at least contain two nodes
+Ignoring illegal geometry for way 284865827.
+error building way geometry for way 299854148: must at least contain two nodes
+Ignoring illegal geometry for way 299854148.
+error building way geometry for way 299906180: must at least contain two nodes
+Ignoring illegal geometry for way 299906180.
+error building way geometry for way 299906226: must at least contain two nodes
+Ignoring illegal geometry for way 299906226.
+error building way geometry for way 300396690: must at least contain two nodes
+Ignoring illegal geometry for way 300396690.
+error building way geometry for way 300396692: must at least contain two nodes
+Ignoring illegal geometry for way 300396692.
+error building way geometry for way 300398895: must at least contain two nodes
+Ignoring illegal geometry for way 300398895.
+error building way geometry for way 322401528: must at least contain two nodes
+Ignoring illegal geometry for way 322401528.
+error building way geometry for way 351201939: must at least contain two nodes
+Ignoring illegal geometry for way 351201939.
+error building way geometry for way 374435095: must at least contain two nodes
+Ignoring illegal geometry for way 374435095.
+error building way geometry for way 377632565: must at least contain two nodes
+Ignoring illegal geometry for way 377632565.
+error building way geometry for way 377645166: must at least contain two nodes
+Ignoring illegal geometry for way 377645166.
+error building way geometry for way 380471664: must at least contain two nodes
+Ignoring illegal geometry for way 380471664.
+error building way geometry for way 381094819: must at least contain two nodes
+Ignoring illegal geometry for way 381094819.
+Ignoring illegal geometry for way 387757113.
+error building way geometry for way 393871978: must at least contain two nodes
+Ignoring illegal geometry for way 393871978.
+error building way geometry for way 398927711: must at least contain two nodes
+Ignoring illegal geometry for way 398927711.
+error building way geometry for way 398927714: must at least contain two nodes
+Ignoring illegal geometry for way 398927714.
+Ignoring illegal geometry for way 404570688.
+Ignoring illegal geometry for way 404571424.
+error building way geometry for way 418255420: must at least contain two nodes
+Ignoring illegal geometry for way 418255420.
+error building way geometry for way 420878115: must at least contain two nodes
+Ignoring illegal geometry for way 420878115.
+error building way geometry for way 420883173: must at least contain two nodes
+Ignoring illegal geometry for way 420883173.
+error building way geometry for way 420907906: must at least contain two nodes
+Ignoring illegal geometry for way 420907906.
+error building way geometry for way 436899191: must at least contain two nodes
+Ignoring illegal geometry for way 436899191.
+error building way geometry for way 436899201: must at least contain two nodes
+Ignoring illegal geometry for way 436899201.
+error building way geometry for way 460359188: must at least contain two nodes
+Ignoring illegal geometry for way 460359188.
+error building way geometry for way 462400922: must at least contain two nodes
+Ignoring illegal geometry for way 462400922.
+error building way geometry for way 464847785: must at least contain two nodes
+Ignoring illegal geometry for way 464847785.
+error building way geometry for way 469210103: must at least contain two nodes
+Ignoring illegal geometry for way 469210103.
+error building way geometry for way 479735286: must at least contain two nodes
+Ignoring illegal geometry for way 479735286.
+error building way geometry for way 479735287: must at least contain two nodes
+Ignoring illegal geometry for way 479735287.
+Ignoring illegal geometry for way 495267270.
+error building way geometry for way 495499670: must at least contain two nodes
+Ignoring illegal geometry for way 495499670.
+error building way geometry for way 497258109: must at least contain two nodes
+Ignoring illegal geometry for way 497258109.
+error building way geometry for way 497401961: must at least contain two nodes
+Ignoring illegal geometry for way 497401961.
+Ignoring illegal geometry for way 499150787.
+Ignoring illegal geometry for way 499150789.
+error building way geometry for way 531803459: must at least contain two nodes
+Ignoring illegal geometry for way 531803459.
+error building way geometry for way 532037971: must at least contain two nodes
+Ignoring illegal geometry for way 532037971.
+error building way geometry for way 538569789: must at least contain two nodes
+Ignoring illegal geometry for way 538569789.
+error building way geometry for way 538569798: must at least contain two nodes
+Ignoring illegal geometry for way 538569798.
+error building way geometry for way 541350711: must at least contain two nodes
+Ignoring illegal geometry for way 541350711.
+error building way geometry for way 556723162: must at least contain two nodes
+Ignoring illegal geometry for way 556723162.
+error building way geometry for way 556723171: must at least contain two nodes
+Ignoring illegal geometry for way 556723171.
+error building way geometry for way 556723174: must at least contain two nodes
+Ignoring illegal geometry for way 556723174.
+error building way geometry for way 570153860: must at least contain two nodes
+Ignoring illegal geometry for way 570153860.
+error building way geometry for way 570177596: must at least contain two nodes
+Ignoring illegal geometry for way 570177596.
+error building way geometry for way 570177598: must at least contain two nodes
+Ignoring illegal geometry for way 570177598.
+error building way geometry for way 570177603: must at least contain two nodes
+Ignoring illegal geometry for way 570177603.
+error building way geometry for way 570177605: must at least contain two nodes
+Ignoring illegal geometry for way 570177605.
+error building way geometry for way 570177616: must at least contain two nodes
+Ignoring illegal geometry for way 570177616.
+error building way geometry for way 570177653: must at least contain two nodes
+Ignoring illegal geometry for way 570177653.
+error building way geometry for way 576205057: must at least contain two nodes
+Ignoring illegal geometry for way 576205057.
+error building way geometry for way 580290420: must at least contain two nodes
+Ignoring illegal geometry for way 580290420.
+error building way geometry for way 584971469: must at least contain two nodes
+Ignoring illegal geometry for way 584971469.
+warning building way geometry for way 660632803: contains position (-73.9509,40.7833) twice
+error building way geometry for way 661047622: must at least contain two nodes
+Ignoring illegal geometry for way 661047622.
+error building way geometry for way 661047627: must at least contain two nodes
+Ignoring illegal geometry for way 661047627.
+warning building way geometry for way 661198880: contains position (-73.9397,40.7861) twice
+warning building way geometry for way 661198909: contains position (-73.9412,40.785) twice
