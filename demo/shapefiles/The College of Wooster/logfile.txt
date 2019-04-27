@@ -1,0 +1,23 @@
+osmium2shape version osmium2shape-1.0
+Memory used for node coordinates storage (approximate):
+  for positive IDs: 242 MiB
+  for negative IDs: 15326 MiB
+error building way geometry for way 19297427: must at least contain two nodes
+Ignoring illegal geometry for way 19297427.
+error building way geometry for way 19302815: must at least contain two nodes
+Ignoring illegal geometry for way 19302815.
+error building way geometry for way 19306426: must at least contain two nodes
+Ignoring illegal geometry for way 19306426.
+error building way geometry for way 19306495: must at least contain two nodes
+Ignoring illegal geometry for way 19306495.
+Ignoring illegal geometry for way 220547112.
+error building way geometry for way 484399965: must at least contain two nodes
+Ignoring illegal geometry for way 484399965.
+error building way geometry for way 485425051: must at least contain two nodes
+Ignoring illegal geometry for way 485425051.
+error building way geometry for way 485448764: must at least contain two nodes
+Ignoring illegal geometry for way 485448764.
+error building way geometry for way 545382008: must at least contain two nodes
+Ignoring illegal geometry for way 545382008.
+error building way geometry for way 607189154: must at least contain two nodes
+Ignoring illegal geometry for way 607189154.

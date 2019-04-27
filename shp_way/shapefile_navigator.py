@@ -75,7 +75,7 @@ class ShapefileNavigator:
         """
 
         directory = self.get_reference_directory()
-        for i in directory.keys():
+        for i in sorted(directory.keys()):
             print(i)
 
     @staticmethod
